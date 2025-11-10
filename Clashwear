@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clash Wear | Battle-Ready Streetwear</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+    :root {
+      --royal-blue: #003b8e;
+      --gold: #d4af37;
+      --black: #000;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: #f9f9f9;
+      color: var(--black);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: var(--black);
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    .logo span {
+      color: var(--gold);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://cdn.dribbble.com/userupload/18674240/file/original-c29850ada9ba26584e0f993c68427ad2.png?format=webp') center/cover;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--gold);
+    }
+    .hero p {
+      margin: 20px 0;
+      font-size: 1.2rem;
+    }
+    .btn {
+      background: var(--royal-blue);
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .section {
+      padding: 60px;
+      text-align: center;
+    }
+    .section h1, .section h2 {
+      color: var(--royal-blue);
+      margin-bottom: 20px;
+    }
+
+    .products {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    .product {
+      background: white;
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      width: 250px;
+      padding: 20px;
+      transition: transform 0.3s;
+    }
+    .product:hover {
+      transform: translateY(-8px);
+    }
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .product h3 {
+      margin: 10px 0;
+      color: var(--royal-blue);
+    }
+    .product button {
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .product button:hover {
+      background: var(--royal-blue);
+      color: white;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    form input, form textarea {
+      width: 60%;
+      padding: 10px;
+      border: 2px solid var(--royal-blue);
+      border-radius: 6px;
+    }
+    form button {
+      background: var(--gold);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      background: var(--black);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 50px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .tabs button {
+      background: var(--royal-blue);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .tabs button.active, .tabs button:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Clash<span>Wear</span></div>
+    <nav>
+      <a href="#" onclick="showPage('home')">Home</a>
+      <a href="#" onclick="showPage('shop')">Shop</a>
+      <a href="#" onclick="showPage('about')">About</a>
+      <a href="#" onclick="showPage('contact')">Contact</a>
+      <a href="#" onclick="showPage('cart')">🛒 Cart</a>
+    </nav>
+  </header>
+
+  <div class="page active" id="home">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Battle-Ready Streetwear</h1>
+        <p>From the urban arena to everyday life — wear your victory with style.</p>
+        <a href="#" class="btn" onclick="showPage('shop')">Shop Now</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>New Drops</h2>
+      <div class="products">
+        <div class="product">
+          <img src="https://i.etsystatic.com/7598396/r/il/77b540/1020465654/il_570xN.1020465654_3c1e.jpg" alt="T-shirt" />
+          <h3>Royal Blue Tee</h3>
+          <p>$39.99</p>
+        </div>
+        <div class="product">
+          <img src="https://animeape.com/wp-content/uploads/2024/07/4th-Zip-Hoodie-Front-Mockup.jpg" alt="Hoodie" />
+          <h3>Gold Crest Hoodie</h3>
+          <p>$79.99</p>
+        </div>
+        <div class="product">
+          <img src="https://www.stlauthentics.com/cdn/shop/files/StarterReplayBack.jpg?v=1728325436" alt="Jacket" />
+          <h3>Battle Jacket</h3>
+          <p>$129.99</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="page" id="shop">
+    <section class="section">
+      <h1>Shop All</h1>
+      <div class="products">
+        <div class="product">
+          <img src="https://ih1.redbubble.net/image.1562742939.9381/ssrco%2Cessential_tee%2Cmens_01%2C101010%3A01c5ca27c6%2Cfront%2Cclose_portrait%2Cx1000.u1.jpg" alt="Tee" />
+          <h3>Royal Tee</h3>
+          <p>$39.99</p>
+          <button>Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="https://m.media-amazon.com/images/I/B1ieKaTDQdL._CLa%7C2140%2C2000%7C91fOkcyupwL.png%7C0%2C0%2C2140%2C2000%2B0.0%2C0.0%2C2140.0%2C2000.0_AC_AC_SY350_QL65_.png" alt="Hoodie" />
+          <h3>Gold Crest Hoodie</h3>
+          <p>$79.99</p>
+          <button>Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="https://yi-files.yellowimages.com/products/1482000/1482023/2401040-cover.jpg" alt="Cap" />
+          <h3>Battle Cap</h3>
+          <p>$29.99</p>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="page" id="about">
+    <section class="section">
+      <h1>Our Story</h1>
+      <p>Clash Wear was born from the spirit of competition — the fusion of street culture, gaming, and self-expression. Every piece is designed for those who fight for their dreams every day.</p>
+      <p>We believe in high-quality materials, bold designs, and fearless style. Whether you're hitting the gym, the streets, or your next challenge — do it in Clash Wear.</p>
+    </section>
+  </div>
+
+  <div class="page" id="contact">
+    <section class="section">
+      <h1>Contact Us</h1>
+      <form onsubmit="alert('Message sent!'); return false;">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="page" id="cart">
+    <section class="section">
+      <h1>Your Cart</h1>
+      <p>No items yet. Start shopping <a href="#" onclick="showPage('shop')">here</a>!</p>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2025 Clash Wear | All rights reserved</p>
+  </footer>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    document.querySelectorAll(".product button").forEach(btn => {
+      btn.addEventListener("click", () => alert("Added to cart! (demo)"));
+    });
+  </script>
+</body>
+</html>
