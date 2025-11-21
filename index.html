@@ -1,199 +1,88 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clash Wear | Battle-Ready Streetwear</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-    :root {
-      --royal-blue: #003b8e;
-      --gold: #d4af37;
-      --black: #000;
+    :root{
+      --royal-blue:#003b8e;
+      --gold:#d4af37;
+      --black:#000;
+      --gray:#f4f4f4;
     }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif}
+    body{background:#f9f9f9;color:var(--black)}
+    a{color:inherit}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Montserrat', sans-serif;
-    }
+    /* Header */
+    header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;background:var(--black);position:sticky;top:0;z-index:10}
+    .logo{color:#fff;font-size:1.6rem;font-weight:700;letter-spacing:.5px}
+    .logo span{color:var(--gold)}
+    nav{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+    nav a{color:#fff;text-decoration:none;font-weight:600;opacity:.95}
+    nav a:hover{color:var(--gold)}
+    .cart-btn{position:relative;padding-right:10px}
+    .cart-count{position:absolute;top:-8px;right:-10px;background:var(--gold);color:#000;font-weight:700;border-radius:999px;font-size:.75rem;min-width:20px;height:20px;display:flex;align-items:center;justify-content:center;padding:0 6px}
 
-    body {
-      background: #f9f9f9;
-      color: var(--black);
-    }
+    /* Hero */
+    .hero{background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url('https://images.unsplash.com/photo-1548883354-7622d03aca47?q=80&w=1600&auto=format&fit=crop') center/cover;
+      height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 18px}
+    .hero h1{font-size:2.6rem;color:var(--gold)}
+    .hero p{margin:16px 0 22px;font-size:1.05rem;opacity:.95}
+    .btn{background:var(--royal-blue);color:#fff;padding:12px 22px;text-decoration:none;border-radius:6px;font-weight:700;display:inline-block}
+    .btn:hover{background:var(--gold);color:#000}
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 60px;
-      background: var(--black);
-    }
+    /* Sections */
+    .section{padding:50px 20px;max-width:1120px;margin:0 auto}
+    .section h1,.section h2{color:var(--royal-blue);margin-bottom:18px;text-align:center}
 
-    .logo {
-      color: white;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
-    .logo span {
-      color: var(--gold);
-    }
+    /* Product grid */
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+    .card{background:#fff;border:2px solid var(--gold);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+    .card img{width:100%;aspect-ratio:1/1;object-fit:cover}
+    .card-body{padding:14px;display:flex;flex-direction:column;gap:6px}
+    .title{font-weight:700;color:var(--royal-blue)}
+    .price{font-weight:700}
+    .add{margin-top:6px;background:var(--gold);border:none;border-radius:8px;padding:10px;font-weight:800;cursor:pointer}
+    .add:hover{background:var(--royal-blue);color:#fff}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-    nav a:hover {
-      color: var(--gold);
-    }
+    /* Forms */
+    form{display:flex;flex-direction:column;align-items:center;gap:14px}
+    form input,form textarea{width:min(650px,90%);padding:10px;border:2px solid var(--royal-blue);border-radius:8px}
+    form button{background:var(--gold);padding:10px 20px;border:none;border-radius:8px;font-weight:800;cursor:pointer}
 
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://cdn.dribbble.com/userupload/18674240/file/original-c29850ada9ba26584e0f993c68427ad2.png?format=webp') center/cover;
-      height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-    }
+    /* Cart */
+    .cart-wrap{background:#fff;border:2px solid var(--gold);border-radius:12px;padding:16px}
+    .cart-empty{padding:18px;text-align:center;background:var(--gray);border-radius:8px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:12px;border-bottom:1px solid #e9e9e9;text-align:left;vertical-align:middle}
+    th{background:#faf7ef}
+    .qty{display:flex;align-items:center;gap:8px}
+    .qty button{width:28px;height:28px;border:1px solid #ddd;border-radius:6px;background:#fff;font-weight:900;cursor:pointer}
+    .qty input{width:44px;text-align:center;border:1px solid #ddd;border-radius:6px;padding:6px}
+    .remove{background:transparent;border:1px solid #ddd;border-radius:8px;padding:6px 10px;cursor:pointer}
+    .actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .subtot{font-size:1.1rem;font-weight:800}
+    .clear{background:#fff;border:2px solid #eee;border-radius:8px;padding:10px 14px;cursor:pointer}
+    .checkout{background:var(--royal-blue);color:#fff;border:none;border-radius:8px;padding:10px 16px;font-weight:800;cursor:pointer}
+    .checkout:hover{background:var(--gold);color:#000}
 
-    .hero h1 {
-      font-size: 3rem;
-      color: var(--gold);
-    }
-    .hero p {
-      margin: 20px 0;
-      font-size: 1.2rem;
-    }
-    .btn {
-      background: var(--royal-blue);
-      color: white;
-      padding: 12px 24px;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: 600;
-      transition: background 0.3s;
-    }
-    .btn:hover {
-      background: var(--gold);
-      color: var(--black);
-    }
+    footer{background:var(--black);color:#fff;text-align:center;padding:16px;margin-top:50px}
 
-    .section {
-      padding: 60px;
-      text-align: center;
-    }
-    .section h1, .section h2 {
-      color: var(--royal-blue);
-      margin-bottom: 20px;
-    }
+    /* Pages switcher */
+    .page{display:none}
+    .page.active{display:block}
 
-    .products {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 30px;
-    }
-    .product {
-      background: white;
-      border: 2px solid var(--gold);
-      border-radius: 10px;
-      width: 250px;
-      padding: 20px;
-      transition: transform 0.3s;
-    }
-    .product:hover {
-      transform: translateY(-8px);
-    }
-    .product img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .product h3 {
-      margin: 10px 0;
-      color: var(--royal-blue);
-    }
-    .product button {
-      background: var(--gold);
-      color: var(--black);
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .product button:hover {
-      background: var(--royal-blue);
-      color: white;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-    form input, form textarea {
-      width: 60%;
-      padding: 10px;
-      border: 2px solid var(--royal-blue);
-      border-radius: 6px;
-    }
-    form button {
-      background: var(--gold);
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    footer {
-      background: var(--black);
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 50px;
-    }
-
-    /* Tabs */
-    .tabs {
-      display: flex;
-      justify-content: center;
-      margin: 30px 0;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    .tabs button {
-      background: var(--royal-blue);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .tabs button.active, .tabs button:hover {
-      background: var(--gold);
-      color: var(--black);
-    }
-    .page {
-      display: none;
-    }
-    .page.active {
-      display: block;
+    @media (max-width:600px){
+      .hero h1{font-size:2.1rem}
     }
   </style>
 </head>
 <body>
-
+  <!-- HEADER -->
   <header>
     <div class="logo">Clash<span>Wear</span></div>
     <nav>
@@ -201,13 +90,14 @@
       <a href="#" onclick="showPage('shop')">Shop</a>
       <a href="#" onclick="showPage('about')">About</a>
       <a href="#" onclick="showPage('contact')">Contact</a>
-      <a href="#" onclick="showPage('cart')">🛒 Cart</a>
+      <a class="cart-btn" href="#" onclick="showPage('cart')">🛒 Cart <span id="cartCount" class="cart-count">0</span></a>
     </nav>
   </header>
 
+  <!-- HOME -->
   <div class="page active" id="home">
     <section class="hero">
-      <div class="hero-text">
+      <div>
         <h1>Battle-Ready Streetwear</h1>
         <p>From the urban arena to everyday life — wear your victory with style.</p>
         <a href="#" class="btn" onclick="showPage('shop')">Shop Now</a>
@@ -216,76 +106,47 @@
 
     <section class="section">
       <h2>New Drops</h2>
-      <div class="products">
-        <div class="product">
-          <img src="https://i.etsystatic.com/7598396/r/il/77b540/1020465654/il_570xN.1020465654_3c1e.jpg" alt="T-shirt" />
-          <h3>Royal Blue Tee</h3>
-          <p>$39.99</p>
-        </div>
-        <div class="product">
-          <img src="https://animeape.com/wp-content/uploads/2024/07/4th-Zip-Hoodie-Front-Mockup.jpg" alt="Hoodie" />
-          <h3>Gold Crest Hoodie</h3>
-          <p>$79.99</p>
-        </div>
-        <div class="product">
-          <img src="https://www.stlauthentics.com/cdn/shop/files/StarterReplayBack.jpg?v=1728325436" alt="Jacket" />
-          <h3>Battle Jacket</h3>
-          <p>$129.99</p>
-        </div>
-      </div>
+      <div id="homeFeatured" class="products"></div>
     </section>
   </div>
 
+  <!-- SHOP -->
   <div class="page" id="shop">
     <section class="section">
       <h1>Shop All</h1>
-      <div class="products">
-        <div class="product">
-          <img src="https://ih1.redbubble.net/image.1562742939.9381/ssrco%2Cessential_tee%2Cmens_01%2C101010%3A01c5ca27c6%2Cfront%2Cclose_portrait%2Cx1000.u1.jpg" alt="Tee" />
-          <h3>Royal Tee</h3>
-          <p>$39.99</p>
-          <button>Add to Cart</button>
-        </div>
-        <div class="product">
-          <img src="https://m.media-amazon.com/images/I/B1ieKaTDQdL._CLa%7C2140%2C2000%7C91fOkcyupwL.png%7C0%2C0%2C2140%2C2000%2B0.0%2C0.0%2C2140.0%2C2000.0_AC_AC_SY350_QL65_.png" alt="Hoodie" />
-          <h3>Gold Crest Hoodie</h3>
-          <p>$79.99</p>
-          <button>Add to Cart</button>
-        </div>
-        <div class="product">
-          <img src="https://yi-files.yellowimages.com/products/1482000/1482023/2401040-cover.jpg" alt="Cap" />
-          <h3>Battle Cap</h3>
-          <p>$29.99</p>
-          <button>Add to Cart</button>
-        </div>
-      </div>
+      <div id="shopGrid" class="products"></div>
     </section>
   </div>
 
+  <!-- ABOUT -->
   <div class="page" id="about">
     <section class="section">
       <h1>Our Story</h1>
-      <p>Clash Wear was born from the spirit of competition — the fusion of street culture, gaming, and self-expression. Every piece is designed for those who fight for their dreams every day.</p>
-      <p>We believe in high-quality materials, bold designs, and fearless style. Whether you're hitting the gym, the streets, or your next challenge — do it in Clash Wear.</p>
+      <p>Clash Wear fuses street culture, sport, and gaming energy. Every piece is built for people who chase wins — in the gym, in the city, and in life.</p>
+      <p>Premium materials, bold graphics, and a royal color set: <b>Royal Blue</b>, <b>Gold</b>, and <b>Black</b>. Wear the crown energy.</p>
     </section>
   </div>
 
+  <!-- CONTACT -->
   <div class="page" id="contact">
     <section class="section">
       <h1>Contact Us</h1>
       <form onsubmit="alert('Message sent!'); return false;">
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
         <textarea placeholder="Your Message" required></textarea>
         <button type="submit">Send</button>
       </form>
     </section>
   </div>
 
+  <!-- CART -->
   <div class="page" id="cart">
     <section class="section">
       <h1>Your Cart</h1>
-      <p>No items yet. Start shopping <a href="#" onclick="showPage('shop')">here</a>!</p>
+      <div id="cartRoot" class="cart-wrap">
+        <!-- filled by JS -->
+      </div>
     </section>
   </div>
 
@@ -294,15 +155,222 @@
   </footer>
 
   <script>
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      window.scrollTo(0, 0);
+    /***********************
+     * PRODUCTS (edit here)
+     ***********************/
+    const PRODUCTS = [
+      {id:'tee-royal',    name:'Royal Blue Tee',      price:39.99, img:'https://images.unsplash.com/photo-1548883354-7622d03aca47?q=80&w=1200&auto=format&fit=crop'},
+      {id:'hoodie-gold',  name:'Gold Crest Hoodie',   price:79.99, img:'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop'},
+      {id:'jacket-battle',name:'Battle Jacket',       price:129.99,img:'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=1200&auto=format&fit=crop'},
+      {id:'cap-battle',   name:'Battle Cap',          price:29.99, img:'https://images.unsplash.com/photo-1534215754734-18e55d13e346?q=80&w=1200&auto=format&fit=crop'},
+      {id:'tee-crest',    name:'Crest Tee (Black)',   price:41.00, img:'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop'},
+      {id:'hoodie-royal', name:'Royal Hoodie',        price:84.00, img:'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop'},
+      {id:'windbreaker',  name:'Arena Windbreaker',   price:115.00,img:'https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?q=80&w=1200&auto=format&fit=crop'},
+      {id:'beanie',       name:'Crown Beanie',        price:24.00, img:'https://images.unsplash.com/photo-1562158070-365b0817f8c3?q=80&w=1200&auto=format&fit=crop'},
+      {id:'socks',        name:'Victory Socks (2pk)', price:18.50, img:'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop'}
+    ];
+
+    /***********************
+     * UTILITIES
+     ***********************/
+    const $ = (sel,root=document)=>root.querySelector(sel);
+    const $all = (sel,root=document)=>[...root.querySelectorAll(sel)];
+    const money = n => `$${n.toFixed(2)}`;
+    const CART_KEY = 'clashwear_cart';
+
+    function loadCart(){
+      try { return JSON.parse(localStorage.getItem(CART_KEY)) || {}; }
+      catch(e){ return {}; }
+    }
+    function saveCart(cart){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+    function cartCount(cart){
+      return Object.values(cart).reduce((sum, item)=>sum + item.qty, 0);
+    }
+    function cartSubtotal(cart){
+      let sum = 0;
+      for(const id in cart){
+        const prod = PRODUCTS.find(p=>p.id===id);
+        if(!prod) continue;
+        sum += prod.price * cart[id].qty;
+      }
+      return sum;
     }
 
-    document.querySelectorAll(".product button").forEach(btn => {
-      btn.addEventListener("click", () => alert("Added to cart! (demo)"));
-    });
+    /***********************
+     * RENDER: HOME & SHOP
+     ***********************/
+    function productCard(p){
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <div class="card-body">
+          <div class="title">${p.name}</div>
+          <div class="price">${money(p.price)}</div>
+          <button class="add" data-id="${p.id}">Add to Cart</button>
+        </div>
+      `;
+      return div;
+    }
+
+    function renderHome(){
+      const featured = PRODUCTS.slice(0,3);
+      const grid = $('#homeFeatured');
+      grid.innerHTML = '';
+      featured.forEach(p => grid.appendChild(productCard(p)));
+    }
+
+    function renderShop(){
+      const grid = $('#shopGrid');
+      grid.innerHTML = '';
+      PRODUCTS.forEach(p => grid.appendChild(productCard(p)));
+    }
+
+    /***********************
+     * CART LOGIC
+     ***********************/
+    function addToCart(id){
+      const prod = PRODUCTS.find(p=>p.id===id);
+      if(!prod){ alert('Item not found'); return; }
+      const cart = loadCart();
+      cart[id] = cart[id] || {qty:0};
+      cart[id].qty += 1;
+      saveCart(cart);
+      updateCartCount();
+      // small toast
+      const btn = document.querySelector(`button.add[data-id="${id}"]`);
+      if(btn){
+        btn.textContent = 'Added!';
+        setTimeout(()=>btn.textContent='Add to Cart', 900);
+      }
+    }
+
+    function changeQty(id, delta){
+      const cart = loadCart();
+      if(!cart[id]) return;
+      cart[id].qty += delta;
+      if(cart[id].qty <= 0) delete cart[id];
+      saveCart(cart);
+      renderCart();
+      updateCartCount();
+    }
+
+    function setQty(id, val){
+      const qty = Math.max(0, parseInt(val||0,10));
+      const cart = loadCart();
+      if(!cart[id]) return;
+      if(qty === 0) delete cart[id];
+      else cart[id].qty = qty;
+      saveCart(cart);
+      renderCart();
+      updateCartCount();
+    }
+
+    function removeItem(id){
+      const cart = loadCart();
+      delete cart[id];
+      saveCart(cart);
+      renderCart();
+      updateCartCount();
+    }
+
+    function clearCart(){
+      saveCart({});
+      renderCart();
+      updateCartCount();
+    }
+
+    function renderCart(){
+      const root = $('#cartRoot');
+      const cart = loadCart();
+      const ids = Object.keys(cart);
+      if(ids.length === 0){
+        root.innerHTML = `<div class="cart-empty">Your cart is empty. <a href="#" onclick="showPage('shop')"><b>Go shop</b></a>!</div>`;
+        return;
+      }
+      let rows = '';
+      ids.forEach(id=>{
+        const prod = PRODUCTS.find(p=>p.id===id);
+        if(!prod) return;
+        const qty = cart[id].qty;
+        const line = prod.price * qty;
+        rows += `
+          <tr>
+            <td style="width:64px"><img src="${prod.img}" alt="${prod.name}" style="width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid #eee"></td>
+            <td><b>${prod.name}</b><br><small>${id}</small></td>
+            <td>${money(prod.price)}</td>
+            <td>
+              <div class="qty">
+                <button onclick="changeQty('${id}',-1)">−</button>
+                <input value="${qty}" onchange="setQty('${id}', this.value)">
+                <button onclick="changeQty('${id}',+1)">+</button>
+              </div>
+            </td>
+            <td>${money(line)}</td>
+            <td><button class="remove" onclick="removeItem('${id}')">Remove</button></td>
+          </tr>
+        `;
+      });
+      const subtotal = cartSubtotal(cart);
+      root.innerHTML = `
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th></th><th>Item</th><th>Price</th><th>Qty</th><th>Total</th><th></th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows}
+            </tbody>
+          </table>
+        </div>
+        <div class="actions">
+          <button class="clear" onclick="clearCart()">Clear Cart</button>
+          <div class="subtot">Subtotal: ${money(subtotal)}</div>
+          <button class="checkout" onclick="checkout()">Checkout</button>
+        </div>
+      `;
+    }
+
+    function checkout(){
+      const total = money(cartSubtotal(loadCart()));
+      alert(`Checkout (demo)\n\nSubtotal: ${total}\n\nNext step would be sending cart to your payment provider (e.g., Stripe/Shopify).`);
+    }
+
+    function updateCartCount(){
+      const count = cartCount(loadCart());
+      $('#cartCount').textContent = count;
+    }
+
+    /***********************
+     * PAGE NAVIGATION
+     ***********************/
+    function showPage(id){
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if(id==='cart') renderCart();
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    /***********************
+     * BOOTSTRAP
+     ***********************/
+    function wireAddButtons(){
+      // Delegate clicks for dynamically rendered cards
+      document.body.addEventListener('click', (e)=>{
+        const btn = e.target.closest('button.add');
+        if(!btn) return;
+        const id = btn.getAttribute('data-id');
+        addToCart(id);
+      });
+    }
+
+    // Initial render
+    renderHome();
+    renderShop();
+    updateCartCount();
+    wireAddButtons();
   </script>
 </body>
 </html>
