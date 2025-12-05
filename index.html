@@ -285,7 +285,9 @@
   <div class="page" id="cart">
     <section class="section">
       <h1>Your Cart</h1>
-      <p>No items yet. Start shopping <a href="#" onclick="showPage('shop')">here</a>!</p>
+      <div id="cart-items"></div>
+      <div id="cart-total" style="margin-top: 20px; font-size: 1.3rem; font-weight: bold;"></div>
+      <button class="btn" style="margin-top: 20px; border: none; cursor: pointer;" onclick="checkout()">Checkout</button>
     </section>
   </div>
 
@@ -294,14 +296,98 @@
   </footer>
 
   <script>
+    let cart = [];
+
     function showPage(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
+      if (id === 'cart') {
+        displayCart();
+      }
       window.scrollTo(0, 0);
     }
 
-    document.querySelectorAll(".product button").forEach(btn => {
-      btn.addEventListener("click", () => alert("Added to cart! (demo)"));
+    function addToCart(name, price) {
+      const item = cart.find(i => i.name === name);
+      if (item) {
+        item.quantity++;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+      alert(`${name} added to cart!`);
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartLink = document.querySelector('nav a[onclick*="cart"]');
+      cartLink.textContent = `🛒 Cart (${totalItems})`;
+    }
+
+    function displayCart() {
+      const cartItemsDiv = document.getElementById('cart-items');
+      const cartTotalDiv = document.getElementById('cart-total');
+      
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = '<p>No items yet. Start shopping <a href="#" onclick="showPage(\'shop\')">here</a>!</p>';
+        cartTotalDiv.innerHTML = '';
+        return;
+      }
+
+      let html = '<div class="products">';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        html += `
+          <div class="product">
+            <h3>${item.name}</h3>
+            <p>$${item.price.toFixed(2)} each</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p style="font-weight: bold; color: var(--royal-blue);">Total: $${itemTotal.toFixed(2)}</p>
+            <button onclick="removeFromCart(${index})">Remove</button>
+          </div>
+        `;
+      });
+
+      html += '</div>';
+      cartItemsDiv.innerHTML = html;
+      cartTotalDiv.innerHTML = `Total: $${total.toFixed(2)}`;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      displayCart();
+      updateCartCount();
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      alert(`Checkout complete! Total: $${total.toFixed(2)}\n\nThank you for shopping at Clash Wear!`);
+      cart = [];
+      displayCart();
+      updateCartCount();
+    }
+
+    // Attach add to cart functionality to all product buttons
+    document.addEventListener('DOMContentLoaded', () => {
+      const products = [
+        { name: 'Royal Tee', price: 39.99 },
+        { name: 'Gold Crest Hoodie', price: 79.99 },
+        { name: 'Battle Cap', price: 29.99 }
+      ];
+
+      document.querySelectorAll("#shop .product button").forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+          const product = products[index];
+          addToCart(product.name, product.price);
+        });
+      });
     });
   </script>
 </body>
