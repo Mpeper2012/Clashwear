@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clash Wear | Battle-Ready Streetwear</title>
+  <title>Clash Wear | Clash Royale Inspired Streetwear</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
@@ -11,6 +11,7 @@
       --royal-blue: #003b8e;
       --gold: #d4af37;
       --black: #000;
+      --gray: #f4f4f4;
     }
 
     * {
@@ -25,435 +26,517 @@
       color: var(--black);
     }
 
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 60px;
+      padding: 18px 24px;
       background: var(--black);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     .logo {
-      color: white;
-      font-size: 1.8rem;
+      color: #fff;
+      font-size: 1.6rem;
       font-weight: 700;
+      letter-spacing: 0.5px;
     }
+
     .logo span {
       color: var(--gold);
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: 600;
-      transition: color 0.3s;
+    nav {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
     }
+
+    nav a {
+      color: #fff;
+      font-weight: 600;
+      opacity: 0.95;
+      cursor: pointer;
+    }
+
     nav a:hover {
       color: var(--gold);
     }
 
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://cdn.dribbble.com/userupload/18674240/file/original-c29850ada9ba26584e0f993c68427ad2.png?format=webp') center/cover;
-      height: 80vh;
+    .cart-btn {
+      position: relative;
+      padding-right: 10px;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      min-width: 20px;
+      height: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      padding: 0 6px;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+        url('https://images.unsplash.com/photo-1548883354-7622d03aca47?q=80&w=1600&auto=format&fit=crop') center/cover;
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      color: #fff;
+      padding: 0 18px;
     }
 
     .hero h1 {
-      font-size: 3rem;
+      font-size: 2.6rem;
       color: var(--gold);
     }
+
     .hero p {
-      margin: 20px 0;
-      font-size: 1.2rem;
+      margin: 16px 0 22px;
+      font-size: 1.05rem;
+      opacity: 0.95;
     }
+
     .btn {
       background: var(--royal-blue);
-      color: white;
-      padding: 12px 24px;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: 600;
-      transition: background 0.3s;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 6px;
+      font-weight: 700;
+      display: inline-block;
+      cursor: pointer;
     }
+
     .btn:hover {
       background: var(--gold);
-      color: var(--black);
+      color: #000;
     }
 
+    /* Sections */
     .section {
-      padding: 60px;
+      padding: 50px 20px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section h1,
+    .section h2 {
+      color: var(--royal-blue);
+      margin-bottom: 18px;
       text-align: center;
     }
-    .section h1, .section h2 {
-      color: var(--royal-blue);
-      margin-bottom: 20px;
+
+    .section p {
+      text-align: center;
+      max-width: 740px;
+      margin: 0 auto 10px;
     }
 
+    /* Product grid */
     .products {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 30px;
-    }
-    .product {
-      background: white;
-      border: 2px solid var(--gold);
-      border-radius: 10px;
-      width: 250px;
-      padding: 20px;
-      transition: transform 0.3s;
-    }
-    .product:hover {
-      transform: translateY(-8px);
-    }
-    .product-image-container {
-      position: relative;
-      width: 100%;
-      height: 200px;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .product img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    .product-graphic {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60%;
-      height: 60%;
-      opacity: 0.9;
-      pointer-events: none;
-    }
-    .product h3 {
-      margin: 10px 0;
-      color: var(--royal-blue);
-    }
-    .product button {
-      background: var(--gold);
-      color: var(--black);
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .product button:hover {
-      background: var(--royal-blue);
-      color: white;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
+      margin-top: 18px;
     }
 
+    .card {
+      background: #fff;
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .title {
+      font-weight: 700;
+      color: var(--royal-blue);
+    }
+
+    .desc {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    .price {
+      font-weight: 700;
+    }
+
+    .add-to-cart {
+      margin-top: 6px;
+      background: var(--gold);
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .add-to-cart:hover {
+      background: var(--royal-blue);
+      color: #fff;
+    }
+
+    /* Forms */
     form {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 14px;
     }
-    form input, form textarea {
-      width: 60%;
+
+    form input,
+    form textarea {
+      width: min(650px, 90%);
       padding: 10px;
       border: 2px solid var(--royal-blue);
-      border-radius: 6px;
+      border-radius: 8px;
     }
+
     form button {
       background: var(--gold);
       padding: 10px 20px;
       border: none;
-      border-radius: 5px;
-      font-weight: bold;
+      border-radius: 8px;
+      font-weight: 800;
       cursor: pointer;
+    }
+
+    /* Cart */
+    .cart-wrap {
+      background: #fff;
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .cart-empty {
+      padding: 18px;
+      text-align: center;
+      background: var(--gray);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e9e9e9;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #faf7ef;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-controls button {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #fff;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .qty-controls span {
+      min-width: 24px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .cart-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      align-items: center;
+    }
+
+    .subtotal {
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .clear-cart {
+      background: #fff;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .checkout {
+      background: var(--royal-blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .checkout:hover {
+      background: var(--gold);
+      color: #000;
     }
 
     footer {
       background: var(--black);
-      color: white;
+      color: #fff;
       text-align: center;
-      padding: 15px;
-      margin-top: 50px;
+      padding: 16px;
+      margin-top: 30px;
+      font-size: 0.85rem;
+      line-height: 1.4;
     }
 
+    /* Page switching */
     .page {
       display: none;
     }
+
     .page.active {
       display: block;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.1rem;
+      }
     }
   </style>
 </head>
 <body>
-
+  <!-- HEADER -->
   <header>
     <div class="logo">Clash<span>Wear</span></div>
     <nav>
-      <a href="#" onclick="showPage('home')">Home</a>
-      <a href="#" onclick="showPage('shop')">Shop</a>
-      <a href="#" onclick="showPage('about')">About</a>
-      <a href="#" onclick="showPage('contact')">Contact</a>
-      <a href="#" onclick="showPage('cart')">🛒 Cart</a>
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('shop')">Shop</a>
+      <a onclick="showPage('about')">About</a>
+      <a onclick="showPage('contact')">Contact</a>
+      <a onclick="showPage('cart')" class="cart-btn">
+        🛒 Cart
+        <span id="cartCount" class="cart-count">0</span>
+      </a>
     </nav>
   </header>
 
+  <!-- HOME PAGE -->
   <div class="page active" id="home">
     <section class="hero">
-      <div class="hero-text">
-        <h1>Battle-Ready Streetwear</h1>
-        <p>From the urban arena to everyday life — wear your victory with style.</p>
-        <a href="#" class="btn" onclick="showPage('shop')">Shop Now</a>
+      <div>
+        <h1>Clash Royale Inspired Streetwear</h1>
+        <p>Outfits based on your favorite cards — from Royal Giant to P.E.K.K.A., built in royal blue, gold, and black.</p>
+        <span class="btn" onclick="showPage('shop')">Shop the Arena</span>
       </div>
     </section>
 
     <section class="section">
-      <h2>New Drops</h2>
+      <h2>Featured Drops</h2>
       <div class="products">
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://i.etsystatic.com/7598396/r/il/77b540/1020465654/il_570xN.1020465654_3c1e.jpg" alt="T-shirt" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <polygon points="50,10 61,35 90,35 67,52 76,77 50,60 24,77 33,52 10,35 39,35" fill="#d4af37" stroke="#003b8e" stroke-width="2"/>
-            </svg>
+        <!-- Featured items (also in shop) -->
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1548883354-7622d03aca47?q=80&w=1200&auto=format&fit=crop" alt="Royal Giant Siege Tee">
+          <div class="card-body">
+            <div class="title">Royal Giant Siege Tee</div>
+            <p class="desc">Oversized tee with a crown + cannon graphic, inspired by the Royal Giant pushing down lanes.</p>
+            <div class="price">$39.99</div>
+            <button class="add-to-cart" onclick="addToCart('rg-tee')">Add to Cart</button>
           </div>
-          <h3>Royal Blue Tee</h3>
-          <p>$39.99</p>
         </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://animeape.com/wp-content/uploads/2024/07/4th-Zip-Hoodie-Front-Mockup.jpg" alt="Hoodie" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <circle cx="50" cy="35" r="12" fill="#d4af37" stroke="#003b8e" stroke-width="2"/>
-              <rect x="35" y="45" width="30" height="35" fill="#003b8e" stroke="#d4af37" stroke-width="2"/>
-              <rect x="30" y="55" width="10" height="20" fill="#d4af37"/>
-              <rect x="60" y="55" width="10" height="20" fill="#d4af37"/>
-              <polygon points="50,20 55,30 45,30" fill="#ff0000"/>
-            </svg>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop" alt="Hog Rider Charge Hoodie">
+          <div class="card-body">
+            <div class="title">Hog Rider Charge Hoodie</div>
+            <p class="desc">Warm hoodie with bold “HOG PUSH” text and lane arrows — perfect for fast-cycle players.</p>
+            <div class="price">$69.99</div>
+            <button class="add-to-cart" onclick="addToCart('hog-hoodie')">Add to Cart</button>
           </div>
-          <h3>Gold Crest Hoodie</h3>
-          <p>$79.99</p>
         </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://www.stlauthentics.com/cdn/shop/files/StarterReplayBack.jpg?v=1728325436" alt="Jacket" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <rect x="35" y="25" width="30" height="35" fill="#8B4513" stroke="#d4af37" stroke-width="2"/>
-              <circle cx="50" cy="20" r="8" fill="#FFD700"/>
-              <rect x="30" y="35" width="8" height="20" fill="#8B4513"/>
-              <rect x="62" y="35" width="8" height="20" fill="#8B4513"/>
-              <polygon points="50,60 42,70 58,70" fill="#d4af37"/>
-            </svg>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=1200&auto=format&fit=crop" alt="P.E.K.K.A. Armor Jacket">
+          <div class="card-body">
+            <div class="title">P.E.K.K.A. Armor Jacket</div>
+            <p class="desc">Heavyweight jacket with sharp panel lines and subtle purple accents, like P.E.K.K.A.’s armor.</p>
+            <div class="price">$119.99</div>
+            <button class="add-to-cart" onclick="addToCart('pekka-jacket')">Add to Cart</button>
           </div>
-          <h3>Battle Jacket</h3>
-          <p>$129.99</p>
         </div>
       </div>
     </section>
   </div>
 
+  <!-- SHOP PAGE -->
   <div class="page" id="shop">
     <section class="section">
-      <h1>Shop All</h1>
+      <h1>Shop Clash Wear</h1>
+      <p>Every piece is inspired by a Clash Royale card — troops, spells, and towers turned into outfits.</p>
       <div class="products">
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" alt="King Tower Tee" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <rect x="35" y="40" width="30" height="40" fill="#003b8e" stroke="#d4af37" stroke-width="2"/>
-              <rect x="30" y="30" width="40" height="10" fill="#d4af37" stroke="#003b8e" stroke-width="2"/>
-              <rect x="45" y="20" width="10" height="10" fill="#ff0000"/>
-              <circle cx="50" cy="60" r="8" fill="#d4af37"/>
-            </svg>
+        <!-- 9 Clash Royale–style items -->
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1548883354-7622d03aca47?q=80&w=1200&auto=format&fit=crop" alt="Royal Giant Siege Tee">
+          <div class="card-body">
+            <div class="title">Royal Giant Siege Tee</div>
+            <p class="desc">Royal blue tee with siege-style graphics and a stylized cannon silhouette.</p>
+            <div class="price">$39.99</div>
+            <button class="add-to-cart" onclick="addToCart('rg-tee')">Add to Cart</button>
           </div>
-          <h3>King Tower Tee</h3>
-          <p>$34.99</p>
-          <button>Add to Cart</button>
         </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400" alt="P.E.K.K.A Hoodie" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <rect x="35" y="30" width="30" height="50" fill="#4a4a4a" stroke="#d4af37" stroke-width="2"/>
-              <rect x="28" y="40" width="10" height="25" fill="#4a4a4a" stroke="#d4af37" stroke-width="2"/>
-              <rect x="62" y="40" width="10" height="25" fill="#4a4a4a" stroke="#d4af37" stroke-width="2"/>
-              <rect x="42" y="35" width="16" height="8" fill="#ff0000"/>
-              <rect x="45" y="50" width="10" height="3" fill="#00ffff"/>
-            </svg>
+
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop" alt="Hog Rider Charge Hoodie">
+          <div class="card-body">
+            <div class="title">Hog Rider Charge Hoodie</div>
+            <p class="desc">Black + gold hoodie with “HOG RIDER” text and a charging lane arrow graphic.</p>
+            <div class="price">$69.99</div>
+            <button class="add-to-cart" onclick="addToCart('hog-hoodie')">Add to Cart</button>
           </div>
-          <h3>P.E.K.K.A Hoodie</h3>
-          <p>$74.99</p>
-          <button>Add to Cart</button>
         </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400" alt="Crown Cap" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <path d="M 20,60 L 30,30 L 50,45 L 70,30 L 80,60 Z" fill="#d4af37" stroke="#003b8e" stroke-width="2"/>
-              <circle cx="30" cy="30" r="5" fill="#ff0000"/>
-              <circle cx="50" cy="45" r="5" fill="#ff0000"/>
-              <circle cx="70" cy="30" r="5" fill="#ff0000"/>
-            </svg>
+
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=1200&auto=format&fit=crop" alt="P.E.K.K.A. Armor Jacket">
+          <div class="card-body">
+            <div class="title">P.E.K.K.A. Armor Jacket</div>
+            <p class="desc">Structured jacket with armor-style stitching and subtle purple P.E.K.K.A. energy lines.</p>
+            <div class="price">$119.99</div>
+            <button class="add-to-cart" onclick="addToCart('pekka-jacket')">Add to Cart</button>
           </div>
-          <h3>Royal Crown Cap</h3>
-          <p>$27.99</p>
-          <button>Add to Cart</button>
         </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400" alt="Hog Rider Tee" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <ellipse cx="50" cy="60" rx="25" ry="15" fill="#8B4513" stroke="#d4af37" stroke-width="2"/>
-              <circle cx="50" cy="35" r="10" fill="#8B6914" stroke="#d4af37" stroke-width="2"/>
-              <rect x="45" y="43" width="10" height="20" fill="#8B6914"/>
-              <rect x="42" y="25" width="16" height="8" fill="#FFD700"/>
-              <polygon points="30,70 35,75 40,70" fill="#8B4513"/>
-              <polygon points="60,70 65,75 70,70" fill="#8B4513"/>
-            </svg>
+
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1551854838-212c50b4c184?q=80&w=1200&auto=format&fit=crop" alt="Wizard Fireball Tee">
+          <div class="card-body">
+            <div class="title">Wizard Fireball Tee</div>
+            <p class="desc">Black tee with flaming orb artwork and a small “STAY SPICY” text hit on the sleeve.</p>
+            <div class="price">$34.99</div>
+            <button class="add-to-cart" onclick="addToCart('wiz-tee')">Add to Cart</button>
           </div>
-          <h3>Hog Rider Tee</h3>
-          <p>$36.99</p>
-          <button>Add to Cart</button>
         </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400" alt="Mega Knight Hoodie" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <rect x="35" y="35" width="30" height="40" fill="#2c2c2c" stroke="#d4af37" stroke-width="2"/>
-              <rect x="25" y="45" width="15" height="25" fill="#2c2c2c" stroke="#d4af37" stroke-width="2"/>
-              <rect x="60" y="45" width="15" height="25" fill="#2c2c2c" stroke="#d4af37" stroke-width="2"/>
-              <polygon points="50,25 45,35 55,35" fill="#8B0000"/>
-              <circle cx="45" cy="45" r="3" fill="#00ffff"/>
-              <circle cx="55" cy="45" r="3" fill="#00ffff"/>
-            </svg>
+
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1200&auto=format&fit=crop" alt="Archers Split-Lane Set">
+          <div class="card-body">
+            <div class="title">Archers Split-Lane Set</div>
+            <p class="desc">Matching tee and shorts with twin arrow graphics, inspired by split-lane Archers.</p>
+            <div class="price">$54.99</div>
+            <button class="add-to-cart" onclick="addToCart('archer-set')">Add to Cart</button>
           </div>
-          <h3>Mega Knight Hoodie</h3>
-          <p>$79.99</p>
-          <button>Add to Cart</button>
         </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400" alt="Arena Hoodie" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <rect x="20" y="50" width="60" height="30" fill="#003b8e" stroke="#d4af37" stroke-width="2"/>
-              <polygon points="20,50 50,20 80,50" fill="#003b8e" stroke="#d4af37" stroke-width="2"/>
-              <polygon points="40,45 50,30 60,45" fill="#d4af37"/>
-              <rect x="45" y="60" width="10" height="15" fill="#8B4513"/>
-            </svg>
+
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop" alt="Golem Tank Hoodie">
+          <div class="card-body">
+            <div class="title">Golem Tank Hoodie</div>
+            <p class="desc">Chunky stone-texture graphic and cracked pattern details, just like a tanky Golem.</p>
+            <div class="price">$74.99</div>
+            <button class="add-to-cart" onclick="addToCart('golem-hoodie')">Add to Cart</button>
           </div>
-          <h3>Arena Champion Hoodie</h3>
-          <p>$69.99</p>
-          <button>Add to Cart</button>
         </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400" alt="Elixir Hoodie" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <ellipse cx="50" cy="50" rx="20" ry="25" fill="#ff00ff" stroke="#d4af37" stroke-width="2" opacity="0.8"/>
-              <circle cx="45" cy="45" r="4" fill="#ffffff" opacity="0.6"/>
-              <circle cx="52" cy="52" r="3" fill="#ffffff" opacity="0.6"/>
-              <polygon points="50,25 48,30 52,30" fill="#d4af37"/>
-              <polygon points="50,75 48,70 52,70" fill="#d4af37"/>
-            </svg>
+
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1534215754734-18e55d13e346?q=80&w=1200&auto=format&fit=crop" alt="Balloon Bomb Cap">
+          <div class="card-body">
+            <div class="title">Balloon Bomb Cap</div>
+            <p class="desc">Snapback with a minimalist hot-air balloon + bomb icon stitched on the front.</p>
+            <div class="price">$24.99</div>
+            <button class="add-to-cart" onclick="addToCart('balloon-cap')">Add to Cart</button>
           </div>
-          <h3>Elixir Drop Hoodie</h3>
-          <p>$72.99</p>
-          <button>Add to Cart</button>
         </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400" alt="Clash Royale Logo Tee" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <polygon points="50,20 60,40 42,50 58,50 40,40" fill="#003b8e" stroke="#d4af37" stroke-width="2"/>
-              <circle cx="50" cy="55" r="18" fill="none" stroke="#d4af37" stroke-width="3"/>
-              <text x="50" y="62" font-size="14" fill="#d4af37" text-anchor="middle" font-weight="bold">CR</text>
-            </svg>
+
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop" alt="Princess Tower Crewneck">
+          <div class="card-body">
+            <div class="title">Princess Tower Crewneck</div>
+            <p class="desc">Soft crewneck with a tower silhouette and a small crown detail on the chest.</p>
+            <div class="price">$59.99</div>
+            <button class="add-to-cart" onclick="addToCart('princess-crewneck')">Add to Cart</button>
           </div>
-          <h3>Classic Logo Tee</h3>
-          <p>$32.99</p>
-          <button>Add to Cart</button>
         </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=400" alt="Giant Tee" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <circle cx="50" cy="30" r="12" fill="#f5deb3" stroke="#d4af37" stroke-width="2"/>
-              <rect x="38" y="42" width="24" height="35" fill="#8B4513" stroke="#d4af37" stroke-width="2"/>
-              <rect x="30" y="52" width="10" height="20" fill="#8B4513"/>
-              <rect x="60" y="52" width="10" height="20" fill="#8B4513"/>
-              <circle cx="45" cy="30" r="2" fill="#000"/>
-              <circle cx="55" cy="30" r="2" fill="#000"/>
-            </svg>
+
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop" alt="Elixir Bar Socks">
+          <div class="card-body">
+            <div class="title">Elixir Bar Socks (2pk)</div>
+            <p class="desc">Two-pack of socks with stacked bar graphics, just like your elixir bar filling up.</p>
+            <div class="price">$18.50</div>
+            <button class="add-to-cart" onclick="addToCart('elixir-socks')">Add to Cart</button>
           </div>
-          <h3>Giant Smash Tee</h3>
-          <p>$35.99</p>
-          <button>Add to Cart</button>
-        </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?w=400" alt="Trophy Cap" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <rect x="40" y="55" width="20" height="25" fill="#d4af37" stroke="#003b8e" stroke-width="2"/>
-              <ellipse cx="50" cy="40" rx="18" ry="15" fill="#d4af37" stroke="#003b8e" stroke-width="2"/>
-              <rect x="25" y="35" width="10" height="15" fill="#d4af37" stroke="#003b8e" stroke-width="2"/>
-              <rect x="65" y="35" width="10" height="15" fill="#d4af37" stroke="#003b8e" stroke-width="2"/>
-              <polygon points="50,25 48,35 52,35" fill="#ff0000"/>
-            </svg>
-          </div>
-          <h3>Trophy Road Cap</h3>
-          <p>$28.99</p>
-          <button>Add to Cart</button>
-        </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400" alt="Wizard Tee" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <polygon points="50,20 45,40 55,40" fill="#4169E1" stroke="#d4af37" stroke-width="2"/>
-              <circle cx="50" cy="45" r="10" fill="#f5deb3" stroke="#d4af37" stroke-width="2"/>
-              <path d="M 40,55 L 50,80 L 60,55 Z" fill="#4169E1" stroke="#d4af37" stroke-width="2"/>
-              <circle cx="50" cy="30" r="3" fill="#FFD700"/>
-              <line x1="55" y1="65" x2="65" y2="60" stroke="#FF6347" stroke-width="2"/>
-            </svg>
-          </div>
-          <h3>Wizard Squad Tee</h3>
-          <p>$34.99</p>
-          <button>Add to Cart</button>
-        </div>
-        <div class="product">
-          <div class="product-image-container">
-            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400" alt="Battle Deck Hoodie" />
-            <svg class="product-graphic" viewBox="0 0 100 100">
-              <rect x="25" y="35" width="18" height="24" fill="#003b8e" stroke="#d4af37" stroke-width="1.5" rx="2"/>
-              <rect x="46" y="35" width="18" height="24" fill="#003b8e" stroke="#d4af37" stroke-width="1.5" rx="2"/>
-              <rect x="67" y="35" width="18" height="24" fill="#003b8e" stroke="#d4af37" stroke-width="1.5" rx="2"/>
-              <rect x="35.5" y="62" width="18" height="24" fill="#8B008B" stroke="#d4af37" stroke-width="1.5" rx="2"/>
-              <rect x="56.5" y="62" width="18" height="24" fill="#8B008B" stroke="#d4af37" stroke-width="1.5" rx="2"/>
-            </svg>
-          </div>
-          <h3>Battle Deck Hoodie</h3>
-          <p>$76.99</p>
-          <button>Add to Cart</button>
         </div>
       </div>
     </section>
   </div>
 
+  <!-- ABOUT PAGE -->
   <div class="page" id="about">
     <section class="section">
-      <h1>Our Story</h1>
-      <p>Clash Wear was born from the spirit of competition — the fusion of street culture, gaming, and self-expression. Every piece is designed for those who fight for their dreams every day.</p>
-      <p>We believe in high-quality materials, bold designs, and fearless style. Whether you're hitting the gym, the streets, or your next challenge — do it in Clash Wear.</p>
+      <h1>About Clash Wear</h1>
+      <p>Clash Wear is a fan-made streetwear concept inspired by Clash Royale cards — not official Supercell merch.</p>
+      <p>Each piece takes the idea of a card (like Hog Rider, Royal Giant, or P.E.K.K.A.) and turns it into clean, wearable designs using royal blue, gold, and black as our main colors.</p>
     </section>
   </div>
 
+  <!-- CONTACT PAGE -->
   <div class="page" id="contact">
     <section class="section">
       <h1>Contact Us</h1>
-      <form onsubmit="alert('Message sent!'); return false;">
+      <form onsubmit="alert('Message sent! (demo)'); return false;">
         <input type="text" placeholder="Your Name" required />
         <input type="email" placeholder="Your Email" required />
         <textarea placeholder="Your Message" required></textarea>
@@ -462,120 +545,169 @@
     </section>
   </div>
 
+  <!-- CART PAGE -->
   <div class="page" id="cart">
     <section class="section">
       <h1>Your Cart</h1>
-      <div id="cart-items"></div>
-      <div id="cart-total" style="margin-top: 20px; font-size: 1.3rem; font-weight: bold;"></div>
-      <button class="btn" style="margin-top: 20px; border: none; cursor: pointer;" onclick="checkout()">Checkout</button>
+      <div id="cartContent" class="cart-wrap">
+        <!-- Filled by JS -->
+      </div>
     </section>
   </div>
 
   <footer>
-    <p>© 2025 Clash Wear | All rights reserved</p>
+    <p>© 2025 Clash Wear | Fan-made Clash Royale inspired concept. Not affiliated with, endorsed by, or sponsored by Supercell.</p>
   </footer>
 
   <script>
-    let cart = [];
+    /***************
+     * PRODUCTS
+     ***************/
+    const PRODUCTS = {
+      "rg-tee":            { name: "Royal Giant Siege Tee",       price: 39.99 },
+      "hog-hoodie":        { name: "Hog Rider Charge Hoodie",     price: 69.99 },
+      "pekka-jacket":      { name: "P.E.K.K.A. Armor Jacket",     price: 119.99 },
+      "wiz-tee":           { name: "Wizard Fireball Tee",         price: 34.99 },
+      "archer-set":        { name: "Archers Split-Lane Set",      price: 54.99 },
+      "golem-hoodie":      { name: "Golem Tank Hoodie",           price: 74.99 },
+      "balloon-cap":       { name: "Balloon Bomb Cap",            price: 24.99 },
+      "princess-crewneck": { name: "Princess Tower Crewneck",     price: 59.99 },
+      "elixir-socks":      { name: "Elixir Bar Socks (2pk)",      price: 18.50 }
+    };
 
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      if (id === 'cart') {
-        displayCart();
-      }
-      window.scrollTo(0, 0);
-    }
+    /***************
+     * CART (in memory)
+     * cart = { productId: quantity }
+     ***************/
+    let cart = {};
 
-    function addToCart(name, price) {
-      const item = cart.find(i => i.name === name);
-      if (item) {
-        item.quantity++;
-      } else {
-        cart.push({ name, price, quantity: 1 });
-      }
-      alert(`${name} added to cart!`);
-      updateCartCount();
+    function money(n) {
+      return "$" + n.toFixed(2);
     }
 
     function updateCartCount() {
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const cartLink = document.querySelector('nav a[onclick*="cart"]');
-      cartLink.textContent = `🛒 Cart (${totalItems})`;
+      const count = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+      document.getElementById("cartCount").textContent = count;
     }
 
-    function displayCart() {
-      const cartItemsDiv = document.getElementById('cart-items');
-      const cartTotalDiv = document.getElementById('cart-total');
-      
-      if (cart.length === 0) {
-        cartItemsDiv.innerHTML = '<p>No items yet. Start shopping <a href="#" onclick="showPage(\'shop\')">here</a>!</p>';
-        cartTotalDiv.innerHTML = '';
+    function renderCart() {
+      const container = document.getElementById("cartContent");
+      const ids = Object.keys(cart);
+
+      if (ids.length === 0) {
+        container.innerHTML = `
+          <div class="cart-empty">
+            Your cart is empty. <span style="text-decoration:underline;cursor:pointer;" onclick="showPage('shop')"><b>Go shop Clash Wear</b></span>!
+          </div>
+        `;
         return;
       }
 
-      let html = '<div class="products">';
-      let total = 0;
+      let rows = "";
+      let subtotal = 0;
 
-      cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        html += `
-          <div class="product">
-            <h3>${item.name}</h3>
-            <p>$${item.price.toFixed(2)} each</p>
-            <p>Quantity: ${item.quantity}</p>
-            <p style="font-weight: bold; color: var(--royal-blue);">Total: $${itemTotal.toFixed(2)}</p>
-            <button onclick="removeFromCart(${index})">Remove</button>
-          </div>
+      ids.forEach(id => {
+        const p = PRODUCTS[id];
+        if (!p) return;
+        const qty = cart[id];
+        const line = p.price * qty;
+        subtotal += line;
+
+        rows += `
+          <tr>
+            <td><b>${p.name}</b><br><small>${id}</small></td>
+            <td>${money(p.price)}</td>
+            <td>
+              <div class="qty-controls">
+                <button onclick="changeQty('${id}', -1)">−</button>
+                <span>${qty}</span>
+                <button onclick="changeQty('${id}', 1)">+</button>
+              </div>
+            </td>
+            <td>${money(line)}</td>
+            <td><button class="remove-btn" onclick="removeFromCart('${id}')">Remove</button></td>
+          </tr>
         `;
       });
 
-      html += '</div>';
-      cartItemsDiv.innerHTML = html;
-      cartTotalDiv.innerHTML = `Total: $${total.toFixed(2)}`;
+      container.innerHTML = `
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows}
+            </tbody>
+          </table>
+        </div>
+        <div class="cart-actions">
+          <button class="clear-cart" onclick="clearCart()">Clear Cart</button>
+          <div class="subtotal">Subtotal: ${money(subtotal)}</div>
+          <button class="checkout" onclick="checkout()">Checkout</button>
+        </div>
+      `;
     }
 
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      displayCart();
+    function addToCart(id) {
+      if (!PRODUCTS[id]) {
+        alert("Item not found.");
+        return;
+      }
+      cart[id] = (cart[id] || 0) + 1;
       updateCartCount();
+      alert("Added to cart!");
+    }
+
+    function changeQty(id, delta) {
+      if (!cart[id]) return;
+      cart[id] += delta;
+      if (cart[id] <= 0) {
+        delete cart[id];
+      }
+      updateCartCount();
+      renderCart();
+    }
+
+    function removeFromCart(id) {
+      delete cart[id];
+      updateCartCount();
+      renderCart();
+    }
+
+    function clearCart() {
+      cart = {};
+      updateCartCount();
+      renderCart();
     }
 
     function checkout() {
-      if (cart.length === 0) {
-        alert('Your cart is empty!');
-        return;
-      }
-      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      alert(`Checkout complete! Total: $${total.toFixed(2)}\n\nThank you for shopping at Clash Wear!`);
-      cart = [];
-      displayCart();
-      updateCartCount();
+      const total = Object.keys(cart).reduce((sum, id) => {
+        return sum + (PRODUCTS[id].price * cart[id]);
+      }, 0);
+      alert("Checkout (demo only)\n\nTotal: " + money(total));
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const products = [
-        { name: 'King Tower Tee', price: 34.99 },
-        { name: 'P.E.K.K.A Hoodie', price: 74.99 },
-        { name: 'Royal Crown Cap', price: 27.99 },
-        { name: 'Hog Rider Tee', price: 36.99 },
-        { name: 'Mega Knight Hoodie', price: 79.99 },
-        { name: 'Arena Champion Hoodie', price: 69.99 },
-        { name: 'Elixir Drop Hoodie', price: 72.99 },
-        { name: 'Classic Logo Tee', price: 32.99 },
-        { name: 'Giant Smash Tee', price: 35.99 },
-        { name: 'Trophy Road Cap', price: 28.99 },
-        { name: 'Wizard Squad Tee', price: 34.99 },
-        { name: 'Battle Deck Hoodie', price: 76.99 }
-      ];
-
-      document.querySelectorAll("#shop .product button").forEach((btn, index) => {
-        btn.addEventListener("click", () => {
-          const product = products[index];
-          addToCart(product.name, product.price);
-        });
+    function showPage(id) {
+      document.querySelectorAll(".page").forEach(page => {
+        page.classList.toggle("active", page.id === id);
       });
+      if (id === "cart") {
+        renderCart();
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Initial setup
+    document.addEventListener("DOMContentLoaded", function() {
+      updateCartCount();
+      renderCart();
     });
   </script>
 </body>
