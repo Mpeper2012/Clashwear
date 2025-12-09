@@ -1,462 +1,1836 @@
-import React, { useState } from 'react';
-import { ShoppingCart, Menu, X, Star, Truck, Shield, RotateCcw } from 'lucide-react';
-
-const SlideWebsite = () => {
-  const [currentPage, setCurrentPage] = useState('home');
-  const [cartItems, setCartItems] = useState([]);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const products = [
-    {
-      id: 1,
-      name: 'Cloud Comfort Slide',
-      price: 49.99,
-      image: 'https://images.unsplash.com/photo-1603487742131-4160ec999306?w=500&h=500&fit=crop',
-      description: 'Ultra-soft cushioning with cloud-like comfort',
-      rating: 4.8,
-      reviews: 342,
-      category: 'comfort',
-      featured: true
-    },
-    {
-      id: 2,
-      name: 'Sport Slide Pro',
-      price: 59.99,
-      image: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=500&h=500&fit=crop',
-      description: 'Athletic design with superior arch support',
-      rating: 4.9,
-      reviews: 521,
-      category: 'sport',
-      featured: true
-    },
-    {
-      id: 3,
-      name: 'Luxury Leather Slide',
-      price: 89.99,
-      image: 'https://images.unsplash.com/photo-1562183241-b937e95585b6?w=500&h=500&fit=crop',
-      description: 'Premium leather with elegant craftsmanship',
-      rating: 4.7,
-      reviews: 198,
-      category: 'luxury',
-      featured: false
-    },
-    {
-      id: 4,
-      name: 'Beach Wave Slide',
-      price: 39.99,
-      image: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=500&h=500&fit=crop',
-      description: 'Water-resistant design perfect for poolside',
-      rating: 4.6,
-      reviews: 287,
-      category: 'casual',
-      featured: true
-    },
-    {
-      id: 5,
-      name: 'Urban Street Slide',
-      price: 64.99,
-      image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&h=500&fit=crop',
-      description: 'Trendy streetwear style with bold colors',
-      rating: 4.8,
-      reviews: 445,
-      category: 'casual',
-      featured: false
-    },
-    {
-      id: 6,
-      name: 'Eco Slide Natural',
-      price: 54.99,
-      image: 'https://images.unsplash.com/photo-1581101767113-1677fc2beaa8?w=500&h=500&fit=crop',
-      description: 'Sustainable materials, earth-friendly design',
-      rating: 4.9,
-      reviews: 312,
-      category: 'eco',
-      featured: true
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SlideCraft Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0f172a;
+      --card: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --success: #4ade80;
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.5);
+      --transition-fast: 0.18s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
     }
-  ];
 
-  const addToCart = (product) => {
-    const existing = cartItems.find(item => item.id === product.id);
-    if (existing) {
-      setCartItems(cartItems.map(item =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      ));
-    } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  };
 
-  const removeFromCart = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1d2537 0, #020617 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-  const updateQuantity = (id, change) => {
-    setCartItems(cartItems.map(item => {
-      if (item.id === id) {
-        const newQty = item.quantity + change;
-        return newQty > 0 ? { ...item, quantity: newQty } : item;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* Layout */
+
+    .app-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 16px 40px;
+      width: 100%;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: conic-gradient(
+        from 180deg,
+        #38bdf8,
+        #a855f7,
+        #f97316,
+        #22c55e,
+        #38bdf8
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 11px;
+      background: radial-gradient(circle at top, #0b1120, #020617);
+    }
+
+    .brand-mark span {
+      position: relative;
+      font-size: 17px;
+      font-weight: 700;
+      color: #e5e7eb;
+      letter-spacing: 0.06em;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-text h1 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-text p {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-btn {
+      border: none;
+      padding: 7px 11px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      color: var(--muted);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform 0.08s ease-out;
+    }
+
+    .nav-btn span.icon {
+      font-size: 13px;
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(130deg, #38bdf8, #a855f7);
+      color: #0b1120;
+      box-shadow: 0 0 24px rgba(56, 189, 248, 0.65);
+    }
+
+    .nav-btn:not(.active):hover {
+      background: rgba(15, 23, 42, 0.7);
+      color: #e5e7eb;
+    }
+
+    .nav-btn:active {
+      transform: scale(0.96);
+    }
+
+    .nav-cart-badge {
+      min-width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 0 4px;
+    }
+
+    main {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 22px;
+      box-shadow: var(--shadow-soft);
+      padding: 20px 18px 22px;
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    @media (min-width: 900px) {
+      main {
+        padding: 22px 24px 24px;
       }
-      return item;
-    }).filter(item => item.quantity > 0));
-  };
+    }
 
-  const cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    /* Pages */
 
-  const HomePage = () => (
-    <div>
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 text-white">
-        <div className="max-w-7xl mx-auto px-4 py-24 sm:py-32">
-          <div className="text-center">
-            <h1 className="text-5xl sm:text-7xl font-bold mb-6 animate-fade-in">
-              Step Into Comfort
-            </h1>
-            <p className="text-xl sm:text-2xl mb-8 text-blue-100">
-              Premium slides designed for your lifestyle
-            </p>
-            <button
-              onClick={() => setCurrentPage('shop')}
-              className="bg-white text-purple-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-50 transition-all transform hover:scale-105"
-            >
-              Shop Now
-            </button>
-          </div>
+    .page {
+      display: none;
+      animation: fadeIn 0.18s ease-out;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+
+    .page-header h2 {
+      font-size: 18px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .page-header p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Shop */
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .chip {
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      font-size: 11px;
+      padding: 4px 9px;
+      background: rgba(15, 23, 42, 0.75);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .chip.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.7);
+    }
+
+    .chip:hover {
+      border-color: rgba(148, 163, 184, 0.9);
+      color: #e5e7eb;
+    }
+
+    .product-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    @media (min-width: 720px) {
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .product-card {
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border-radius: var(--radius-lg);
+      padding: 10px 10px 11px;
+      border: 1px solid rgba(30, 64, 175, 0.35);
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.65);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .slide-preview {
+      border-radius: 14px;
+      padding: 10px 11px;
+      min-height: 120px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1e293b, #020617);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .slide-preview-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .slide-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .slide-sub {
+      font-size: 11px;
+      color: #e5e7eb;
+      opacity: 0.9;
+    }
+
+    .slide-meta {
+      font-size: 10px;
+      color: #e5e7eb;
+      opacity: 0.75;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .slide-pill {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .slide-accent-blob {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      filter: blur(18px);
+      opacity: 0.7;
+      right: -30px;
+      bottom: -40px;
+      pointer-events: none;
+    }
+
+    .product-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 3px;
+    }
+
+    .product-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .product-title-row h3 {
+      font-size: 14px;
+    }
+
+    .product-title-row span.price {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .product-desc {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2px;
+      gap: 8px;
+    }
+
+    .pill-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      padding: 7px 11px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      color: #020617;
+      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.7);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(34, 197, 94, 0.8);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      color: var(--muted);
+    }
+
+    .btn-outline:hover {
+      border-color: #e5e7eb;
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    /* Cart */
+
+    .cart-layout {
+      display: grid;
+      gap: 16px;
+    }
+
+    @media (min-width: 880px) {
+      .cart-layout {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        align-items: flex-start;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top, #020617, #020617);
+      border-radius: var(--radius-lg);
+      padding: 10px 11px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .card-header h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .card-header span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .cart-empty {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 10px 0 2px;
+    }
+
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr) auto;
+      gap: 8px;
+      padding: 7px 8px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(30, 64, 175, 0.5);
+      align-items: center;
+    }
+
+    .cart-item-title {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .cart-item-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .qty-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+    }
+
+    .qty-btn {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      padding-bottom: 2px;
+      transition: all var(--transition-fast);
+    }
+
+    .qty-btn:hover {
+      background: rgba(30, 64, 175, 0.75);
+      border-color: rgba(56, 189, 248, 0.85);
+    }
+
+    .qty-value {
+      min-width: 18px;
+      text-align: center;
+    }
+
+    .cart-item-price {
+      font-size: 12px;
+      font-weight: 600;
+      text-align: right;
+      color: var(--accent);
+    }
+
+    .cart-item-remove {
+      border: none;
+      background: transparent;
+      color: rgba(248, 113, 113, 0.85);
+      font-size: 16px;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity var(--transition-fast), transform 0.08s ease-out;
+    }
+
+    .cart-item-remove:hover {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .summary-row.total {
+      margin-top: 8px;
+      padding-top: 5px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.5);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .summary-row.total span:last-child {
+      color: var(--accent);
+    }
+
+    .checkout-note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .badge-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: var(--success);
+      margin-bottom: 6px;
+    }
+
+    /* Builder */
+
+    .builder-layout {
+      display: grid;
+      gap: 14px;
+    }
+
+    @media (min-width: 900px) {
+      .builder-layout {
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.3fr);
+      }
+    }
+
+    .builder-form {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    label {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.92);
+      color: var(--text);
+      font-size: 12px;
+      padding: 7px 10px;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+        background var(--transition-fast), transform 0.08s ease-out;
+    }
+
+    textarea {
+      border-radius: 14px;
+      resize: vertical;
+      min-height: 70px;
+      line-height: 1.4;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
+      background: rgba(15, 23, 42, 0.98);
+      transform: translateY(-1px);
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .input-row > * {
+      flex: 1;
+    }
+
+    .color-input {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .color-input input[type="color"] {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: none;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .color-input span {
+      font-size: 11px;
+    }
+
+    .helper-text {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: -3px;
+    }
+
+    .builder-preview-wrapper {
+      background: radial-gradient(circle at top, #020617, #020617);
+      border-radius: var(--radius-lg);
+      padding: 11px 11px 11px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .builder-preview {
+      border-radius: 14px;
+      padding: 11px 13px;
+      min-height: 135px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .builder-preview.layout-left {
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .builder-preview.layout-left .builder-meta {
+      margin-top: 0;
+    }
+
+    .builder-preview.layout-center {
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+    }
+
+    .builder-preview.layout-split {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .builder-preview-content {
+      position: relative;
+      z-index: 1;
+      max-width: 80%;
+    }
+
+    .builder-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .builder-sub {
+      font-size: 12px;
+      color: #e5e7eb;
+      margin-top: 2px;
+      opacity: 0.9;
+    }
+
+    .builder-meta {
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+      font-size: 10px;
+      color: #e5e7eb;
+      opacity: 0.8;
+      flex-wrap: wrap;
+    }
+
+    .builder-pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .builder-badge {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .builder-blob {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      filter: blur(20px);
+      opacity: 0.7;
+      right: -40px;
+      bottom: -50px;
+      pointer-events: none;
+    }
+
+    .builder-footer {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* About, Contact, Help */
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .stack h3 {
+      font-size: 13px;
+      color: #e5e7eb;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .grid-two {
+      display: grid;
+      gap: 10px;
+    }
+
+    @media (min-width: 820px) {
+      .grid-two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    ul {
+      padding-left: 16px;
+    }
+
+    li + li {
+      margin-top: 3px;
+    }
+
+    .faq-item {
+      padding: 8px 9px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 12px;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      margin-bottom: 3px;
+      color: #e5e7eb;
+    }
+
+    .faq-a {
+      color: var(--muted);
+    }
+
+    /* Floating help button */
+
+    .help-fab {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      color: #020617;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 13px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 18px 45px rgba(56, 189, 248, 0.9);
+      z-index: 40;
+      cursor: pointer;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
+        filter 0.12s ease-out;
+    }
+
+    .help-fab:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow: 0 22px 50px rgba(168, 85, 247, 0.9);
+    }
+
+    .help-fab span.icon {
+      font-size: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .help-fab {
+        padding: 7px 11px;
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <span>SC</span>
+        </div>
+        <div class="brand-text">
+          <h1>SlideCraft Studio</h1>
+          <p>Custom slides & pro templates for creators, gamers & athletes.</p>
         </div>
       </div>
-
-      {/* Featured Deals */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Featured Deals</h2>
-          <p className="text-gray-600 text-lg">Our most popular slides at special prices</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.filter(p => p.featured).map(product => (
-            <div key={product.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2">
-              <div className="relative">
-                <img src={product.image} alt={product.name} className="w-full h-64 object-cover" />
-                <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                  DEAL
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">{product.name}</h3>
-                <div className="flex items-center mb-2">
-                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  <span className="ml-1 text-sm text-gray-600">{product.rating} ({product.reviews})</span>
-                </div>
-                <p className="text-gray-600 mb-4">{product.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-purple-600">${product.price}</span>
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Features */}
-      <div className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Truck className="w-8 h-8 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Free Shipping</h3>
-              <p className="text-gray-600">On orders over $50</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">1-Year Warranty</h3>
-              <p className="text-gray-600">Quality guaranteed</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <RotateCcw className="w-8 h-8 text-pink-600" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">30-Day Returns</h3>
-              <p className="text-gray-600">Easy returns & exchanges</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const ShopPage = () => (
-    <div className="max-w-7xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8">Our Collection</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {products.map(product => (
-          <div key={product.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all">
-            <img src={product.image} alt={product.name} className="w-full h-72 object-cover" />
-            <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
-              <div className="flex items-center mb-3">
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <span className="ml-2 text-gray-600">{product.rating} ({product.reviews} reviews)</span>
-              </div>
-              <p className="text-gray-600 mb-4">{product.description}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-3xl font-bold text-purple-600">${product.price}</span>
-                <button
-                  onClick={() => addToCart(product)}
-                  className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-semibold"
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
-  const AboutPage = () => (
-    <div className="max-w-4xl mx-auto px-4 py-16">
-      <h1 className="text-5xl font-bold mb-8 text-center">About Us</h1>
-     
-      <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-8 mb-12">
-        <h2 className="text-3xl font-bold mb-4">Our Story</h2>
-        <p className="text-lg text-gray-700 leading-relaxed mb-4">
-          Founded in 2020, we set out to revolutionize the footwear industry with one simple mission: create the most comfortable, stylish, and durable slides on the market. What started as a small project in our garage has grown into a brand trusted by thousands of customers worldwide.
-        </p>
-        <p className="text-lg text-gray-700 leading-relaxed">
-          Every slide we design is crafted with meticulous attention to detail, combining premium materials with innovative ergonomic technology. We believe that comfort should never compromise style, and style should never compromise comfort.
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-8 mb-12">
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <h3 className="text-2xl font-bold mb-4 text-purple-600">Our Values</h3>
-          <ul className="space-y-3 text-gray-700">
-            <li className="flex items-start">
-              <span className="text-purple-600 mr-2">✓</span>
-              <span>Quality craftsmanship in every product</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-purple-600 mr-2">✓</span>
-              <span>Sustainable and eco-friendly materials</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-purple-600 mr-2">✓</span>
-              <span>Customer satisfaction above all</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-purple-600 mr-2">✓</span>
-              <span>Innovation in comfort technology</span>
-            </li>
-          </ul>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <h3 className="text-2xl font-bold mb-4 text-blue-600">Why Choose Us?</h3>
-          <ul className="space-y-3 text-gray-700">
-            <li className="flex items-start">
-              <span className="text-blue-600 mr-2">★</span>
-              <span>Premium materials sourced globally</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-blue-600 mr-2">★</span>
-              <span>Ergonomic designs tested by experts</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-blue-600 mr-2">★</span>
-              <span>30-day satisfaction guarantee</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-blue-600 mr-2">★</span>
-              <span>Award-winning customer service</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-2xl p-12 text-center">
-        <h3 className="text-3xl font-bold mb-4">Join Our Community</h3>
-        <p className="text-xl mb-6">Over 50,000 happy customers worldwide</p>
-        <button
-          onClick={() => setCurrentPage('shop')}
-          className="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Start Shopping
+      <nav>
+        <button class="nav-btn active" data-page="shop">
+          <span class="icon">🛒</span> Shop
         </button>
-      </div>
-    </div>
-  );
-
-  const CartPage = () => (
-    <div className="max-w-4xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8">Shopping Cart</h1>
-     
-      {cartItems.length === 0 ? (
-        <div className="text-center py-16">
-          <ShoppingCart className="w-24 h-24 mx-auto text-gray-300 mb-4" />
-          <p className="text-xl text-gray-600 mb-6">Your cart is empty</p>
-          <button
-            onClick={() => setCurrentPage('shop')}
-            className="bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700 transition-colors"
-          >
-            Continue Shopping
-          </button>
-        </div>
-      ) : (
-        <>
-          <div className="space-y-4 mb-8">
-            {cartItems.map(item => (
-              <div key={item.id} className="bg-white rounded-xl shadow-lg p-6 flex items-center gap-6">
-                <img src={item.image} alt={item.name} className="w-24 h-24 object-cover rounded-lg" />
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-1">{item.name}</h3>
-                  <p className="text-gray-600">${item.price}</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => updateQuantity(item.id, -1)}
-                    className="bg-gray-200 w-8 h-8 rounded-full hover:bg-gray-300 transition-colors"
-                  >
-                    -
-                  </button>
-                  <span className="text-lg font-semibold w-8 text-center">{item.quantity}</span>
-                  <button
-                    onClick={() => updateQuantity(item.id, 1)}
-                    className="bg-gray-200 w-8 h-8 rounded-full hover:bg-gray-300 transition-colors"
-                  >
-                    +
-                  </button>
-                </div>
-                <div className="text-xl font-bold text-purple-600 w-24 text-right">
-                  ${(item.price * item.quantity).toFixed(2)}
-                </div>
-                <button
-                  onClick={() => removeFromCart(item.id)}
-                  className="text-red-500 hover:text-red-700 transition-colors"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-8">
-            <div className="flex justify-between items-center mb-6">
-              <span className="text-2xl font-bold">Total:</span>
-              <span className="text-3xl font-bold text-purple-600">${cartTotal.toFixed(2)}</span>
-            </div>
-            <button className="w-full bg-purple-600 text-white py-4 rounded-lg text-lg font-semibold hover:bg-purple-700 transition-colors">
-              Proceed to Checkout
-            </button>
-          </div>
-        </>
-      )}
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
-            <div className="text-2xl font-bold text-purple-600 cursor-pointer" onClick={() => setCurrentPage('home')}>
-              SlideLife
-            </div>
-           
-            <div className="hidden md:flex space-x-8">
-              <button onClick={() => setCurrentPage('home')} className="hover:text-purple-600 transition-colors font-medium">
-                Home
-              </button>
-              <button onClick={() => setCurrentPage('shop')} className="hover:text-purple-600 transition-colors font-medium">
-                Shop
-              </button>
-              <button onClick={() => setCurrentPage('about')} className="hover:text-purple-600 transition-colors font-medium">
-                About
-              </button>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setCurrentPage('cart')}
-                className="relative hover:text-purple-600 transition-colors"
-              >
-                <ShoppingCart className="w-6 h-6" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </button>
-              <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
-                {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
-          </div>
-
-          {menuOpen && (
-            <div className="md:hidden pb-4 space-y-2">
-              <button onClick={() => { setCurrentPage('home'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600">
-                Home
-              </button>
-              <button onClick={() => { setCurrentPage('shop'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600">
-                Shop
-              </button>
-              <button onClick={() => { setCurrentPage('about'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600">
-                About
-              </button>
-            </div>
-          )}
-        </div>
+        <button class="nav-btn" data-page="builder">
+          <span class="icon">🎨</span> Custom Builder
+        </button>
+        <button class="nav-btn" data-page="about">
+          <span class="icon">✨</span> About
+        </button>
+        <button class="nav-btn" data-page="contact">
+          <span class="icon">📩</span> Contact
+        </button>
+        <button class="nav-btn" data-page="help">
+          <span class="icon">🆘</span> Help
+        </button>
+        <button class="nav-btn" data-page="cart">
+          <span class="icon">🛍️</span>
+          Cart
+          <span class="nav-cart-badge" id="navCartCount">0</span>
+        </button>
       </nav>
+    </header>
 
-      {/* Page Content */}
-      {currentPage === 'home' && <HomePage />}
-      {currentPage === 'shop' && <ShopPage />}
-      {currentPage === 'about' && <AboutPage />}
-      {currentPage === 'cart' && <CartPage />}
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">SlideLife</h3>
-              <p className="text-gray-400">Premium comfort for every step</p>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4">Quick Links</h4>
-              <div className="space-y-2 text-gray-400">
-                <p className="hover:text-white cursor-pointer">Privacy Policy</p>
-                <p className="hover:text-white cursor-pointer">Terms of Service</p>
-                <p className="hover:text-white cursor-pointer">Shipping Info</p>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4">Contact Us</h4>
-              <div className="space-y-2 text-gray-400">
-                <p>support@slidelife.com</p>
-                <p>1-800-SLIDE-ME</p>
-                <p>Mon-Fri 9AM-5PM EST</p>
-              </div>
-            </div>
+    <main>
+      <!-- SHOP -->
+      <section id="shop" class="page active">
+        <div class="page-header">
+          <div>
+            <h2>Template Shop</h2>
+            <p>Grab a pro-designed slide, then tweak it in the builder.</p>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 SlideLife. All rights reserved.</p>
+          <p id="shopCountText"></p>
+        </div>
+
+        <div class="filters">
+          <button class="chip active" data-filter="all">All templates</button>
+          <button class="chip" data-filter="sports">Sports</button>
+          <button class="chip" data-filter="gaming">Gaming</button>
+          <button class="chip" data-filter="school">School & Study</button>
+          <button class="chip" data-filter="creator">Creators</button>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+          <!-- Products injected by JS -->
+        </div>
+      </section>
+
+      <!-- BUILDER -->
+      <section id="builder" class="page">
+        <div class="page-header">
+          <div>
+            <h2>Custom Slide Builder</h2>
+            <p>Type, pick colors, choose layout — preview updates live.</p>
+          </div>
+          <p>Export idea & rebuild in your favorite app (Google Slides, PPT, etc.).</p>
+        </div>
+
+        <div class="builder-layout">
+          <div class="card">
+            <div class="card-header">
+              <h3>Slide settings</h3>
+              <span>Make it yours</span>
+            </div>
+            <form class="builder-form" id="builderForm" onsubmit="return false;">
+              <label>
+                Slide title
+                <input
+                  type="text"
+                  id="builderTitle"
+                  placeholder="Championship Game Recap"
+                  value="Championship Game Recap"
+                />
+              </label>
+
+              <label>
+                Subtitle / tagline
+                <input
+                  type="text"
+                  id="builderSubtitle"
+                  placeholder="Dexter vs. Rivals • Final score 4–2"
+                  value="Dexter vs. Rivals • Final score 4–2"
+                />
+              </label>
+
+              <div class="input-row">
+                <label>
+                  Corner badge
+                  <input
+                    type="text"
+                    id="builderBadge"
+                    placeholder="Playoffs • Game 7"
+                    value="Playoffs • Game 7"
+                  />
+                </label>
+                <label>
+                  Layout
+                  <select id="builderLayout">
+                    <option value="layout-left">Title left, stats right</option>
+                    <option value="layout-center" selected>Centered headline</option>
+                    <option value="layout-split">Split highlight</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="input-row">
+                <label>
+                  Background color
+                  <div class="color-input">
+                    <input type="color" id="builderBgColor" value="#0f172a" />
+                    <span>Card background glow</span>
+                  </div>
+                </label>
+                <label>
+                  Accent color
+                  <div class="color-input">
+                    <input type="color" id="builderAccentColor" value="#38bdf8" />
+                    <span>Highlight color</span>
+                  </div>
+                </label>
+              </div>
+
+              <label>
+                Tagline chips
+                <textarea
+                  id="builderTags"
+                  placeholder="Home • 7:30 PM • MVP: #88"
+                >Home • 7:30 PM • MVP: #88</textarea>
+              </label>
+              <div class="helper-text">
+                Separate tags with "•" or commas. Example: <code>Quarterfinal • Power Play Goals: 3 • Crowd 3,200+</code>
+              </div>
+            </form>
+          </div>
+
+          <div class="builder-preview-wrapper">
+            <div class="card-header">
+              <h3>Live preview</h3>
+              <span>Visual reference for your real slide app</span>
+            </div>
+            <div
+              class="builder-preview layout-center"
+              id="builderPreview"
+              style="background: radial-gradient(circle at top, #1f2937, #020617);"
+            >
+              <div
+                class="builder-preview-content"
+                style="--accent-color: #38bdf8;"
+              >
+                <div class="builder-title" id="previewTitle">
+                  Championship Game Recap
+                </div>
+                <div class="builder-sub" id="previewSubtitle">
+                  Dexter vs. Rivals • Final score 4–2
+                </div>
+                <div class="builder-meta" id="previewMeta">
+                  <span class="builder-pill">Home • 7:30 PM • MVP: #88</span>
+                </div>
+              </div>
+              <div
+                class="builder-badge"
+                id="previewBadge"
+              >
+                Playoffs • Game 7
+              </div>
+              <div
+                class="builder-blob"
+                id="builderBlob"
+                style="background: radial-gradient(circle, #38bdf8, transparent);"
+              ></div>
+            </div>
+            <div class="builder-footer">
+              <span>
+                💡 Screenshot this layout and rebuild it in
+                <strong>Google Slides, Keynote, or PowerPoint</strong>.
+              </span>
+              <span>Need help? Jump to the Help section or use Contact.</span>
+            </div>
           </div>
         </div>
-      </footer>
-    </div>
-  );
-};
+      </section>
 
-export default SlideWebsite;
+      <!-- ABOUT -->
+      <section id="about" class="page">
+        <div class="page-header">
+          <div>
+            <h2>About SlideCraft</h2>
+            <p>Built for people who live in slides — athletes, gamers, students & creators.</p>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="card stack">
+            <h3>What this site is</h3>
+            <p>
+              SlideCraft Studio is a front-end demo store where you can browse realistic slide
+              templates, toss them into a working cart, and sketch your own slides in
+              the live builder.
+            </p>
+            <p>
+              It’s designed to feel like a real shop:
+              sports game recaps, gaming tournament brackets, school projects,
+              content creator overlays and more.
+            </p>
+            <p>
+              Use it as a starting point, then plug these ideas into
+              whatever app you actually use for slides.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Who it's for</h3>
+            <ul>
+              <li><strong>Athletes & coaches:</strong> game recaps, season highlight boards.</li>
+              <li><strong>Gamers & streamers:</strong> esports brackets, overlay slides, match history.</li>
+              <li><strong>Students:</strong> clean title pages, project covers, study decks.</li>
+              <li><strong>Creators:</strong> YouTube intros, sponsorship slides, content calendar plans.</li>
+            </ul>
+            <p>
+              Everything is 100% client-side — no accounts, logins, or real payments required.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="page">
+        <div class="page-header">
+          <div>
+            <h2>Contact</h2>
+            <p>Found a bug or want a new type of slide? Tell us.</p>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="card">
+            <div class="card-header">
+              <h3>Send a message</h3>
+              <span>Demo form (no backend)</span>
+            </div>
+            <form class="stack" id="contactForm" onsubmit="return false;">
+              <label>
+                Your name
+                <input type="text" id="contactName" placeholder="Your name" />
+              </label>
+              <label>
+                Email
+                <input type="email" id="contactEmail" placeholder="you@example.com" />
+              </label>
+              <label>
+                What do you need help with?
+                <textarea
+                  id="contactMessage"
+                  placeholder="Example: 'Cart bug on mobile', or 'Please add more video game templates.'"
+                ></textarea>
+              </label>
+              <button class="btn btn-primary" id="contactSubmit">
+                📩 Fake-send message
+              </button>
+              <div class="helper-text" id="contactStatus">
+                This is a front-end demo, so it won’t actually email anyone — but you can still
+                practice writing what you’d send.
+              </div>
+            </form>
+          </div>
+
+          <div class="card stack">
+            <h3>Quick info</h3>
+            <p><strong>Response time:</strong> In a real app, we’d try to respond within 24–48 hours.</p>
+            <p><strong>Best details to include:</strong></p>
+            <ul>
+              <li>What page you were on (Shop, Cart, Builder, etc.).</li>
+              <li>What device you are using (phone, tablet, laptop).</li>
+              <li>Exactly what you tried and what went wrong.</li>
+            </ul>
+            <p>
+              The more specific you are, the easier it is to fix issues and
+              add the features you actually want.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- HELP -->
+      <section id="help" class="page">
+        <div class="page-header">
+          <div>
+            <h2>Help Center</h2>
+            <p>Run into a problem? Start here.</p>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="stack">
+            <div class="card stack">
+              <h3>Common questions</h3>
+
+              <div class="faq-item">
+                <div class="faq-q">🛒 My cart isn’t saving between refreshes.</div>
+                <div class="faq-a">
+                  This is a simple demo store, so the cart only lives in this tab
+                  while it’s open. In a real app we’d save it to a database or use
+                  local storage.
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-q">🎨 Can I download these slides?</div>
+                <div class="faq-a">
+                  Not directly from this page. Use the layouts as inspiration:
+                  copy the text, colors and layout into a real slide tool
+                  like Google Slides or PowerPoint.
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-q">💳 Are these real purchases?</div>
+                <div class="faq-a">
+                  No. Everything on this site is front-end only.
+                  The checkout button just simulates a successful order with a message.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="card stack">
+              <h3>Still stuck?</h3>
+              <p>
+                1. Go to the <strong>Contact</strong> tab and write what went wrong.<br />
+                2. Include screenshots if you’re using this in a real project.<br />
+                3. Describe what you expected to happen vs. what actually happened.
+              </p>
+              <p>
+                You can also “test” your bug reports here: pretend this is a real
+                support form and practice writing clear messages.
+              </p>
+              <p>
+                Tip: If something in the cart or builder breaks after you edit the code,
+                undo your last change and test again. That makes it easier to find bugs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CART -->
+      <section id="cart" class="page">
+        <div class="page-header">
+          <div>
+            <h2>Your Cart</h2>
+            <p>Review your chosen templates before “checking out”.</p>
+          </div>
+        </div>
+
+        <div class="cart-layout">
+          <div class="card">
+            <div class="card-header">
+              <h3>Items</h3>
+              <span id="cartItemCountLabel">0 items</span>
+            </div>
+            <div id="cartItemsContainer">
+              <p class="cart-empty">
+                Your cart is empty. Visit the <strong>Shop</strong> tab to add your first slide template.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="badge-soft">Demo checkout • No real payment</span>
+            <div class="card-header">
+              <h3>Summary</h3>
+              <span>Instant digital “delivery”</span>
+            </div>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="summarySubtotal">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Service fee</span>
+              <span id="summaryFees">$0.00</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total</span>
+              <span id="summaryTotal">$0.00</span>
+            </div>
+            <button class="btn btn-primary" id="checkoutBtn" style="margin-top: 9px; width: 100%;">
+              ✅ Simulate checkout
+            </button>
+            <p class="checkout-note" id="checkoutNote">
+              When you click “Simulate checkout”, we’ll pretend your order succeeded
+              and show a summary message. No real money, no real downloads.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Floating help button -->
+  <button class="help-fab" id="helpFab">
+    <span class="icon">❓</span>
+    Help
+  </button>
+
+  <script>
+    // --- DATA ---
+
+    const products = [
+      {
+        id: "sports-final-recap",
+        name: "Championship Game Recap",
+        category: "sports",
+        tag: "Hockey / Basketball",
+        title: "Game 7 • Final Recap",
+        subtitle: "Scoreboard, MVP, key stats on one slide.",
+        metaLeft: "Score • MVP • Series",
+        metaRight: "Perfect for end-of-season highlight decks.",
+        price: 6,
+        accent: "#38bdf8",
+        accent2: "#22c55e"
+      },
+      {
+        id: "sports-season-stats",
+        name: "Season Stats Dashboard",
+        category: "sports",
+        tag: "Stats Board",
+        title: "Season Overview",
+        subtitle: "Games, goals, assists, plus/minus, save %",
+        metaLeft: "Clean grid layout",
+        metaRight: "Ideal for coaches & captains",
+        price: 7,
+        accent: "#22c55e",
+        accent2: "#0ea5e9"
+      },
+      {
+        id: "gaming-bracket",
+        name: "Esports Tournament Bracket",
+        category: "gaming",
+        tag: "Bracket Slide",
+        title: "Playoff Bracket",
+        subtitle: "Top 8 teams, rounds, scores & MVPs.",
+        metaLeft: "LAN or online",
+        metaRight: "Perfect for Valorant, Fortnite, Rocket League",
+        price: 5,
+        accent: "#a855f7",
+        accent2: "#38bdf8"
+      },
+      {
+        id: "gaming-stream-overlay",
+        name: "Streamer Overlay Slide",
+        category: "gaming",
+        tag: "Creator Layout",
+        title: "Live Stream Scene",
+        subtitle: "Face cam frame, chat area, recent events.",
+        metaLeft: "Twitch / YouTube",
+        metaRight: "Makes your stream look pro instantly",
+        price: 8,
+        accent: "#f97316",
+        accent2: "#a855f7"
+      },
+      {
+        id: "school-project-cover",
+        name: "School Project Cover",
+        category: "school",
+        tag: "Title Slide",
+        title: "Project Title Page",
+        subtitle: "Name, class, date, and teacher neatly aligned.",
+        metaLeft: "History • Science • ELA",
+        metaRight: "Teacher-friendly minimalist look",
+        price: 4,
+        accent: "#38bdf8",
+        accent2: "#6366f1"
+      },
+      {
+        id: "school-study-plan",
+        name: "Study Plan Board",
+        category: "school",
+        tag: "Planner Slide",
+        title: "Weekly Study Plan",
+        subtitle: "Subjects, times, and priorities in one view.",
+        metaLeft: "Great before exams",
+        metaRight: "Helps you stay consistent",
+        price: 4,
+        accent: "#22c55e",
+        accent2: "#0ea5e9"
+      },
+      {
+        id: "creator-sponsorship",
+        name: "Sponsorship Pitch Slide",
+        category: "creator",
+        tag: "Brand Deck",
+        title: "Sponsorship Overview",
+        subtitle: "Audience, views, engagement and packages.",
+        metaLeft: "For YouTubers & streamers",
+        metaRight: "Clean, pro, brandable",
+        price: 9,
+        accent: "#f97316",
+        accent2: "#22c55e"
+      },
+      {
+        id: "creator-content-calendar",
+        name: "Content Calendar Slide",
+        category: "creator",
+        tag: "Planner",
+        title: "Weekly Upload Schedule",
+        subtitle: "Videos, shorts, streams and collabs.",
+        metaLeft: "Stay consistent",
+        metaRight: "Map out your uploads",
+        price: 5,
+        accent: "#a855f7",
+        accent2: "#38bdf8"
+      }
+    ];
+
+    // Cart state: { [id]: { product, qty } }
+    const cart = {};
+
+    // --- DOM HELPERS ---
+
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => document.querySelectorAll(selector);
+
+    // --- NAVIGATION ---
+
+    function setActivePage(pageId) {
+      $$(".page").forEach((p) => p.classList.remove("active"));
+      $(`#${pageId}`).classList.add("active");
+
+      $$(".nav-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.page === pageId);
+      });
+    }
+
+    $$(".nav-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const page = btn.dataset.page;
+        setActivePage(page);
+      });
+    });
+
+    // Floating help button scrolls to Help page
+    $("#helpFab").addEventListener("click", () => {
+      setActivePage("help");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // --- SHOP RENDERING ---
+
+    function createSlidePreview(product) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "slide-preview";
+
+      wrapper.style.background = `linear-gradient(135deg, rgba(15,23,42,1), rgba(15,23,42,0.3)), radial-gradient(circle at top, ${product.accent}, #020617)`;
+
+      const inner = document.createElement("div");
+      inner.className = "slide-preview-inner";
+
+      const title = document.createElement("div");
+      title.className = "slide-title";
+      title.textContent = product.title;
+
+      const sub = document.createElement("div");
+      sub.className = "slide-sub";
+      sub.textContent = product.subtitle;
+
+      const meta = document.createElement("div");
+      meta.className = "slide-meta";
+      const left = document.createElement("span");
+      left.textContent = product.metaLeft;
+      const right = document.createElement("span");
+      right.textContent = product.metaRight;
+      meta.append(left, right);
+
+      inner.append(title, sub, meta);
+
+      const accentBlob = document.createElement("div");
+      accentBlob.className = "slide-accent-blob";
+      accentBlob.style.background = `radial-gradient(circle, ${product.accent2}, transparent)`;
+
+      wrapper.append(inner, accentBlob);
+
+      return wrapper;
+    }
+
+    function renderShop(filter = "all") {
+      const grid = $("#productGrid");
+      grid.innerHTML = "";
+
+      const filtered = products.filter(
+        (p) => filter === "all" || p.category === filter
+      );
+
+      filtered.forEach((product) => {
+        const card = document.createElement("article");
+        card.className = "product-card";
+
+        const tag = document.createElement("div");
+        tag.className = "product-tag";
+        tag.textContent = product.tag;
+        card.appendChild(tag);
+
+        const slide = createSlidePreview(product);
+        card.appendChild(slide);
+
+        const body = document.createElement("div");
+        body.className = "product-body";
+
+        const titleRow = document.createElement("div");
+        titleRow.className = "product-title-row";
+
+        const title = document.createElement("h3");
+        title.textContent = product.name;
+
+        const price = document.createElement("span");
+        price.className = "price";
+        price.textContent = `$${product.price.toFixed(2)}`;
+
+        titleRow.append(title, price);
+
+        const desc = document.createElement("p");
+        desc.className = "product-desc";
+        desc.textContent = product.metaRight;
+
+        const footer = document.createElement("div");
+        footer.className = "product-footer";
+
+        const label = document.createElement("span");
+        label.className = "pill-label";
+        label.textContent = "Instant digital layout";
+
+        const btn = document.createElement("button");
+        btn.className = "btn btn-primary";
+        btn.innerHTML = `Add to cart <span>+</span>`;
+        btn.dataset.productId = product.id;
+
+        footer.append(label, btn);
+
+        body.append(titleRow, desc, footer);
+        card.appendChild(body);
+
+        grid.appendChild(card);
+      });
+
+      $("#shopCountText").textContent = `${filtered.length} template${
+        filtered.length !== 1 ? "s" : ""
+      } shown`;
+    }
+
+    // Filter chips
+    $$(".chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        $$(".chip").forEach((c) => c.classList.remove("active"));
+        chip.classList.add("active");
+        renderShop(chip.dataset.filter);
+      });
+    });
+
+    // Add to cart
+    $("#productGrid").addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-product-id]");
+      if (!btn) return;
+      const id = btn.dataset.productId;
+      const product = products.find((p) => p.id === id);
+      if (!product) return;
+      addToCart(product);
+    });
+
+    // --- CART LOGIC ---
+
+    function addToCart(product) {
+      if (!cart[product.id]) {
+        cart[product.id] = { product, qty: 1 };
+      } else {
+        cart[product.id].qty += 1;
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const itemsContainer = $("#cartItemsContainer");
+      itemsContainer.innerHTML = "";
+
+      const entries = Object.values(cart);
+      const count = entries.reduce((sum, item) => sum + item.qty, 0);
+      const subtotal = entries.reduce(
+        (sum, item) => sum + item.product.price * item.qty,
+        0
+      );
+      // simple fixed fee example
+      const fee = subtotal > 0 ? Math.max(1, subtotal * 0.05) : 0;
+      const total = subtotal + fee;
+
+      // Nav badge + item count label
+      $("#navCartCount").textContent = count;
+      $("#cartItemCountLabel").textContent = `${count} item${
+        count !== 1 ? "s" : ""
+      }`;
+
+      if (entries.length === 0) {
+        itemsContainer.innerHTML = `
+          <p class="cart-empty">
+            Your cart is empty. Visit the <strong>Shop</strong> tab to add your first slide template.
+          </p>
+        `;
+      } else {
+        const list = document.createElement("div");
+        list.className = "cart-items";
+
+        entries.forEach(({ product, qty }) => {
+          const row = document.createElement("div");
+          row.className = "cart-item";
+          row.dataset.productId = product.id;
+
+          const main = document.createElement("div");
+          const title = document.createElement("div");
+          title.className = "cart-item-title";
+          title.textContent = product.name;
+
+          const meta = document.createElement("div");
+          meta.className = "cart-item-meta";
+          meta.textContent = product.tag;
+
+          main.append(title, meta);
+
+          const qtyCol = document.createElement("div");
+          const controls = document.createElement("div");
+          controls.className = "qty-controls";
+
+          const minus = document.createElement("button");
+          minus.className = "qty-btn";
+          minus.textContent = "−";
+          minus.dataset.action = "decrease";
+
+          const value = document.createElement("span");
+          value.className = "qty-value";
+          value.textContent = qty;
+
+          const plus = document.createElement("button");
+          plus.className = "qty-btn";
+          plus.textContent = "+";
+          plus.dataset.action = "increase";
+
+          controls.append(minus, value, plus);
+          qtyCol.appendChild(controls);
+
+          const priceCol = document.createElement("div");
+          const price = document.createElement("div");
+          price.className = "cart-item-price";
+          price.textContent = `$${(product.price * qty).toFixed(2)}`;
+
+          const removeBtn = document.createElement("button");
+          removeBtn.className = "cart-item-remove";
+          removeBtn.innerHTML = "×";
+          removeBtn.title = "Remove from cart";
+          removeBtn.dataset.action = "remove";
+
+          priceCol.append(price, removeBtn);
+
+          row.append(main, qtyCol, priceCol);
+          list.appendChild(row);
+        });
+
+        itemsContainer.appendChild(list);
+      }
+
+      $("#summarySubtotal").textContent = `$${subtotal.toFixed(2)}`;
+      $("#summaryFees").textContent = `$${fee.toFixed(2)}`;
+      $("#summaryTotal").textContent = `$${total.toFixed(2)}`;
+    }
+
+    // Cart item controls
+    $("#cartItemsContainer").addEventListener("click", (e) => {
+      const actionBtn = e.target.closest("[data-action]");
+      if (!actionBtn) return;
+
+      const row = e.target.closest(".cart-item");
+      if (!row) return;
+
+      const id = row.dataset.productId;
+      const entry = cart[id];
+      if (!entry) return;
+
+      const action = actionBtn.dataset.action;
+      if (action === "increase") {
+        entry.qty += 1;
+      } else if (action === "decrease") {
+        entry.qty -= 1;
+        if (entry.qty <= 0) {
+          delete cart[id];
+        }
+      } else if (action === "remove") {
+        delete cart[id];
+      }
+
+      updateCartUI();
+    });
+
+    $("#checkoutBtn").addEventListener("click", () => {
+      const entries = Object.values(cart);
+      if (!entries.length) {
+        $("#checkoutNote").textContent =
+          "Your cart is empty — add some slide templates before checking out.";
+        $("#checkoutNote").style.color = "var(--danger)";
+        return;
+      }
+      const total = entries.reduce(
+        (sum, item) => sum + item.product.price * item.qty,
+        0
+      );
+      $("#checkoutNote").textContent =
+        "Order simulated! Imagine we emailed you a download link with all your templates. Total: $" +
+        total.toFixed(2) +
+        " (before demo fees).";
+      $("#checkoutNote").style.color = "var(--success)";
+    });
+
+    // --- BUILDER LIVE PREVIEW ---
+
+    function updateBuilderPreview() {
+      const title = $("#builderTitle").value.trim() || "Your Slide Title";
+      const subtitle =
+        $("#builderSubtitle").value.trim() ||
+        "Add a short description or tagline here.";
+      const badge =
+        $("#builderBadge").value.trim() || "Custom • One of One";
+
+      const layout = $("#builderLayout").value;
+      const bgColor = $("#builderBgColor").value || "#0f172a";
+      const accentColor = $("#builderAccentColor").value || "#38bdf8";
+      const tagsRaw = $("#builderTags").value.trim();
+
+      $("#previewTitle").textContent = title;
+      $("#previewSubtitle").textContent = subtitle;
+      $("#previewBadge").textContent = badge;
+
+      const preview = $("#builderPreview");
+      preview.className = `builder-preview ${layout}`;
+      preview.style.background = `radial-gradient(circle at top, ${bgColor}, #020617)`;
+
+      const blob = $("#builderBlob");
+      blob.style.background = `radial-gradient(circle, ${accentColor}, transparent)`;
+
+      const meta = $("#previewMeta");
+      meta.innerHTML = "";
+
+      if (tagsRaw) {
+        const parts = tagsRaw
+          .split(/[,•]/)
+          .map((p) => p.trim())
+          .filter(Boolean);
+        parts.forEach((tag) => {
+          const span = document.createElement("span");
+          span.className = "builder-pill";
+          span.textContent = tag;
+          meta.appendChild(span);
+        });
+      }
+    }
+
+    ["builderTitle", "builderSubtitle", "builderBadge", "builderLayout", "builderBgColor", "builderAccentColor", "builderTags"].forEach(
+      (id) => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", updateBuilderPreview);
+        el.addEventListener("change", updateBuilderPreview);
+      }
+    );
+
+    // --- CONTACT FORM (fake submit) ---
+
+    $("#contactSubmit").addEventListener("click", () => {
+      const name = $("#contactName").value.trim() || "Friend";
+      const issue = $("#contactMessage").value.trim();
+      const status = $("#contactStatus");
+
+      if (!issue) {
+        status.textContent =
+          "Please describe what went wrong or what feature you want.";
+        status.style.color = "var(--danger)";
+        return;
+      }
+
+      status.textContent =
+        "Thanks, " +
+        name +
+        "! In a real app this would send to support. For now, you can copy your message and paste it wherever you actually need help.";
+      status.style.color = "var(--success)";
+    });
+
+    // --- INIT ---
+
+    renderShop("all");
+    updateCartUI();
+    updateBuilderPreview();
+  </script>
+</body>
+</html>
