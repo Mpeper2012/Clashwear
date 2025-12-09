@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SlideCraft Studio</html></title>
+  <title>SlideCraft Studio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -425,13 +425,12 @@
     .slide-photo-fallback {
       position: absolute;
       inset: 0;
-      display: flex;
+      display: none; /* hidden until needed */
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 6px;
       padding: 8px;
-      background: radial-gradient(circle at top, rgba(15,23,42,0.9), #020617);
     }
 
     .slide-photo-fallback-title {
@@ -953,7 +952,7 @@
         </div>
         <div class="brand-text">
           <h1>SlideCraft Studio</h1>
-          <p>Custom slides & pro templates for creators, gamers & athletes.</p>
+          <p>Custom slide sandals for athletes, gamers & creators.</p>
         </div>
       </div>
       <nav>
@@ -985,18 +984,18 @@
       <section id="shop" class="page active">
         <div class="page-header">
           <div>
-            <h2>Template Shop</h2>
-            <p>Grab a pro-designed slide, then tweak it in the builder.</p>
+            <h2>Slide Shop</h2>
+            <p>Pick your favorite premade slides or get design ideas.</p>
           </div>
           <p id="shopCountText"></p>
         </div>
 
         <div class="filters">
-          <button class="chip active" data-filter="all">All templates</button>
+          <button class="chip active" data-filter="all">All slides</button>
           <button class="chip" data-filter="sports">Sports</button>
           <button class="chip" data-filter="gaming">Gaming</button>
-          <button class="chip" data-filter="school">School & Study</button>
-          <button class="chip" data-filter="creator">Creators</button>
+          <button class="chip" data-filter="school">School</button>
+          <button class="chip" data-filter="creator">Creator</button>
         </div>
 
         <div class="product-grid" id="productGrid">
@@ -1008,54 +1007,54 @@
       <section id="builder" class="page">
         <div class="page-header">
           <div>
-            <h2>Custom Slide Builder</h2>
-            <p>Type, pick colors, choose layout — preview updates live.</p>
+            <h2>Custom Design Builder</h2>
+            <p>Plan your own slide strap idea — colors, vibe, tags.</p>
           </div>
-          <p>Export idea & rebuild in your favorite app (Google Slides, PPT, etc.).</p>
+          <p>Use this as a mockup, then turn it into a real pair later.</p>
         </div>
 
         <div class="builder-layout">
           <div class="card">
             <div class="card-header">
-              <h3>Slide settings</h3>
-              <span>Make it yours</span>
+              <h3>Design settings</h3>
+              <span>Make your own slide concept</span>
             </div>
             <form class="builder-form" id="builderForm" onsubmit="return false;">
               <label>
-                Slide title
+                Slide name
                 <input
                   type="text"
                   id="builderTitle"
-                  placeholder="Championship Game Recap"
-                  value="Championship Game Recap"
+                  placeholder="Dexter Home Jersey Slide"
+                  value="Dexter Home Jersey Slide"
                 />
               </label>
 
               <label>
-                Subtitle / tagline
+                Strap tagline
                 <input
                   type="text"
                   id="builderSubtitle"
-                  placeholder="Dexter vs. Rivals • Final score 4–2"
-                  value="Dexter vs. Rivals • Final score 4–2"
+                  placeholder="Team colors • Big 88 on the strap"
+                  value="Team colors • Big 88 on the strap"
                 />
               </label>
 
               <div class="input-row">
                 <label>
-                  Corner badge
+                  Small detail text
                   <input
                     type="text"
                     id="builderBadge"
-                    placeholder="Playoffs • Game 7"
-                    value="Playoffs • Game 7"
+                    placeholder="Game-day only drop"
+                    value="Game-day only drop"
                   />
                 </label>
                 <label>
                   Layout
                   <select id="builderLayout">
-                    <option value="layout-left">Title left, stats right</option>
-                    <option value="layout-center" selected>Centered headline</option>
+                    <option value="layout-left">Name left, details right</option>
+                    <option value="layout-center" selected>Centered name</option>
                     <option value="layout-split">Split highlight</option>
                   </select>
                 </label>
@@ -1079,22 +1078,22 @@
               </div>
 
               <label>
-                Tagline chips
+                Tags / features
                 <textarea
                   id="builderTags"
-                  placeholder="Home • 7:30 PM • MVP: #88"
-                >Home • 7:30 PM • MVP: #88</textarea>
+                  placeholder="Padded strap • Molded footbed • Non-slip sole"
+                >Padded strap • Molded footbed • Non-slip sole</textarea>
               </label>
               <div class="helper-text">
-                Separate tags with "•" or commas. Example: <code>Quarterfinal • Power Play Goals: 3 • Crowd 3,200+</code>
+                Separate tags with "•" or commas. Example: <code>Glow-in-the-dark strap • Team logo • Number on the side</code>
               </div>
             </form>
           </div>
 
           <div class="builder-preview-wrapper">
             <div class="card-header">
-              <h3>Live preview</h3>
-              <span>Visual reference for your real slide app</span>
+              <h3>Design preview</h3>
+              <span>Use this as a concept board</span>
             </div>
             <div
               class="builder-preview layout-center"
@@ -1106,20 +1105,20 @@
                 style="--accent-color: #38bdf8;"
               >
                 <div class="builder-title" id="previewTitle">
-                  Championship Game Recap
+                  Dexter Home Jersey Slide
                 </div>
                 <div class="builder-sub" id="previewSubtitle">
-                  Dexter vs. Rivals • Final score 4–2
+                  Team colors • Big 88 on the strap
                 </div>
                 <div class="builder-meta" id="previewMeta">
-                  <span class="builder-pill">Home • 7:30 PM • MVP: #88</span>
+                  <span class="builder-pill">Padded strap • Molded footbed • Non-slip sole</span>
                 </div>
               </div>
               <div
                 class="builder-badge"
                 id="previewBadge"
               >
-                Playoffs • Game 7
+                Game-day only drop
               </div>
               <div
                 class="builder-blob"
@@ -1129,8 +1128,7 @@
             </div>
             <div class="builder-footer">
               <span>
-                💡 Screenshot this layout and rebuild it in
-                <strong>Google Slides, Keynote, or PowerPoint</strong>.
+                💡 Screenshot this and use it when you order customs or talk to a designer.
               </span>
               <span>Need help? Jump to the Help section or use Contact.</span>
             </div>
@@ -1143,7 +1141,7 @@
         <div class="page-header">
           <div>
             <h2>About SlideCraft</h2>
-            <p>Built for people who live in slides — athletes, gamers, students & creators.</p>
+            <p>For people who live in slides — at the rink, on the field, or on stream.</p>
           </div>
         </div>
 
@@ -1151,31 +1149,31 @@
           <div class="card stack">
             <h3>What this site is</h3>
             <p>
-              SlideCraft Studio is a front-end demo store where you can browse realistic slide
-              templates, toss them into a working cart, and sketch your own slides in
-              the live builder.
+              SlideCraft Studio is a demo store where you can browse realistic slide
+              sandal designs, put them in a working cart, and sketch out your own
+              custom ideas with the builder.
             </p>
             <p>
-              It’s designed to feel like a real shop:
-              sports game recaps, gaming tournament brackets, school projects,
-              content creator overlays and more.
+              Categories are built around how you actually live:
+              sports game-days, gaming marathons, school fits, and creator
+              studio vibes.
             </p>
             <p>
-              Use it as a starting point, then plug these ideas into
-              whatever app you actually use for slides.
+              Right now everything is front-end only &mdash; there’s no real checkout yet.
+              It’s perfect for planning a real drop or just practicing ecommerce ideas.
             </p>
           </div>
 
           <div class="card stack">
             <h3>Who it's for</h3>
             <ul>
-              <li><strong>Athletes & coaches:</strong> game recaps, season highlight boards.</li>
-              <li><strong>Gamers & streamers:</strong> esports brackets, overlay slides, match history.</li>
-              <li><strong>Students:</strong> clean title pages, project covers, study decks.</li>
-              <li><strong>Creators:</strong> YouTube intros, sponsorship slides, content calendar plans.</li>
+              <li><strong>Athletes:</strong> pre-game arrivals, locker-room slides, team colorways.</li>
+              <li><strong>Gamers:</strong> pixel art straps, neon galaxy prints, esports team flavors.</li>
+              <li><strong>Students:</strong> back-to-school slides that match sweats and hoodies.</li>
+              <li><strong>Creators:</strong> “studio day” slides that look good on TikTok & IG.</li>
             </ul>
             <p>
-              Everything is 100% client-side — no accounts, logins, or real payments required.
+              Use this as a base, then connect it to a real print-on-demand or custom slide manufacturer later.
             </p>
           </div>
         </div>
@@ -1186,7 +1184,7 @@
         <div class="page-header">
           <div>
             <h2>Contact</h2>
-            <p>Found a bug or want a new type of slide? Tell us.</p>
+            <p>Want a new design category or found a bug? Tell us.</p>
           </div>
         </div>
 
@@ -1209,7 +1207,7 @@
                 What do you need help with?
                 <textarea
                   id="contactMessage"
-                  placeholder="Example: 'Cart bug on mobile', or 'Please add more video game templates.'"
+                  placeholder="Example: 'Cart bug on mobile', or 'Add more hockey/gaming slides.'"
                 ></textarea>
               </label>
               <button class="btn btn-primary" id="contactSubmit">
@@ -1256,26 +1254,25 @@
               <div class="faq-item">
                 <div class="faq-q">🛒 My cart isn’t saving between refreshes.</div>
                 <div class="faq-a">
-                  This is a simple demo store, so the cart only lives in this tab
+                  This store is just a front-end demo, so the cart only lives in this tab
                   while it’s open. In a real app we’d save it to a database or use
                   local storage.
                 </div>
               </div>
 
               <div class="faq-item">
-                <div class="faq-q">🎨 Can I download these slides?</div>
+                <div class="faq-q">🩴 Are these real slides I can buy?</div>
                 <div class="faq-a">
-                  Not directly from this page. Use the layouts as inspiration:
-                  copy the text, colors and layout into a real slide tool
-                  like Google Slides or PowerPoint.
+                  Not yet. These are sample products and design ideas.
+                  You can use them as a blueprint for a real brand or future drop.
                 </div>
               </div>
 
               <div class="faq-item">
-                <div class="faq-q">💳 Are these real purchases?</div>
+                <div class="faq-q">🎨 Can I make my own design here?</div>
                 <div class="faq-a">
-                  No. Everything on this site is front-end only.
-                  The checkout button just simulates a successful order with a message.
+                  Yes, the Custom Builder lets you plan a colorway and name for your slide.
+                  Save a screenshot, then use it when you order customs from a real manufacturer.
                 </div>
               </div>
             </div>
@@ -1286,12 +1283,12 @@
               <h3>Still stuck?</h3>
               <p>
                 1. Go to the <strong>Contact</strong> tab and write what went wrong.<br />
-                2. Include screenshots if you’re using this in a real project.<br />
+                2. Include screenshots if you’re testing this for a real project.<br />
                 3. Describe what you expected to happen vs. what actually happened.
               </p>
               <p>
-                You can also “test” your bug reports here: pretend this is a real
-                support form and practice writing clear messages.
+                You can also “test” your support messages here:
+                pretend this is a real brand and practice writing clear emails.
               </p>
               <p>
                 Tip: If something in the cart or builder breaks after you edit the code,
@@ -1307,7 +1304,6 @@
         <div class="page-header">
           <div>
             <h2>Your Cart</h2>
-            <p>Review your chosen templates before “checking out”.</p>
           </div>
         </div>
 
@@ -1319,7 +1315,7 @@
             </div>
             <div id="cartItemsContainer">
               <p class="cart-empty">
-                Your cart is empty. Visit the <strong>Shop</strong> tab to add your first slide template.
+                Your cart is empty. Visit the <strong>Shop</strong> tab to add your first slide design.
               </p>
             </div>
           </div>
@@ -1328,7 +1324,7 @@
             <span class="badge-soft">Demo checkout • No real payment</span>
             <div class="card-header">
               <h3>Summary</h3>
-              <span>Instant digital “delivery”</span>
+              <span>Preview total price</span>
             </div>
             <div class="summary-row">
               <span>Subtotal</span>
@@ -1347,7 +1343,7 @@
             </button>
             <p class="checkout-note" id="checkoutNote">
               When you click “Simulate checkout”, we’ll pretend your order succeeded
-              and show a summary message. No real money, no real downloads.
+              and show a summary message. No real money, no real shipments.
             </p>
           </div>
         </div>
@@ -1362,126 +1358,124 @@
   </button>
 
   <script>
-    // --- DATA: products with image filenames ---
+    // --- DATA: actual slide (sandal) products ---
     const products = [
       {
-        id: "sports-final-recap",
-        name: "Championship Game Recap",
+        id: "sports-home-jersey-slide",
+        name: "Home Jersey Game-Day Slide",
         category: "sports",
-        tag: "Hockey / Basketball",
-        title: "Game 7 • Final Recap",
-        subtitle: "Scoreboard, MVP, key stats on one slide.",
-        metaLeft: "Score • MVP • Series",
-        metaRight: "Perfect for end-of-season highlight decks.",
-        price: 6,
-        accent: "#38bdf8",
-        accent2: "#22c55e",
-        image: "sports-final-recap.png"
+        tag: "Team Colors",
+        title: "Home Jersey Game-Day Slide",
+        subtitle: "Two-tone strap that matches your home jersey with bold number hit.",
+        metaLeft: "Padded strap • Molded footbed",
+        metaRight: "Perfect for pre-game arrivals & locker room",
+        price: 45,
+        accent: "#1d4ed8",
+        accent2: "#ef4444",
+        image: "sports-home-jersey-slide.png"
       },
       {
-        id: "sports-season-stats",
-        name: "Season Stats Dashboard",
+        id: "sports-locker-room-slide",
+        name: "Locker Room Chill Slide",
         category: "sports",
-        tag: "Stats Board",
-        title: "Season Overview",
-        subtitle: "Games, goals, assists, plus/minus, save %",
-        metaLeft: "Clean grid layout",
-        metaRight: "Ideal for coaches & captains",
-        price: 7,
-        accent: "#22c55e",
-        accent2: "#0ea5e9",
-        image: "sports-season-stats.png"
-      },
-      {
-        id: "gaming-bracket",
-        name: "Esports Tournament Bracket",
-        category: "gaming",
-        tag: "Bracket Slide",
-        title: "Playoff Bracket",
-        subtitle: "Top 8 teams, rounds, scores & MVPs.",
-        metaLeft: "LAN or online",
-        metaRight: "Perfect for Valorant, Fortnite, Rocket League",
-        price: 5,
-        accent: "#a855f7",
-        accent2: "#38bdf8",
-        image: "gaming-bracket.png"
-      },
-      {
-        id: "gaming-stream-overlay",
-        name: "Streamer Overlay Slide",
-        category: "gaming",
-        tag: "Creator Layout",
-        title: "Live Stream Scene",
-        subtitle: "Face cam frame, chat area, recent events.",
-        metaLeft: "Twitch / YouTube",
-        metaRight: "Makes your stream look pro instantly",
-        price: 8,
+        tag: "Athlete Essentials",
+        title: "Locker Room Chill Slide",
+        subtitle: "Thick cushioned footbed for after practice and tournament weekends.",
+        metaLeft: "Extra soft EVA foam",
+        metaRight: "Water-friendly & non-slip bottom",
+        price: 39,
         accent: "#f97316",
+        accent2: "#0ea5e9",
+        image: "sports-locker-room-slide.png"
+      },
+      {
+        id: "gaming-pixel-arcade",
+        name: "Pixel Arcade Gamer Slide",
+        category: "gaming",
+        tag: "Retro Gaming",
+        title: "Pixel Arcade Gamer Slide",
+        subtitle: "All-over pixel art with controllers, hearts, and coin icons.",
+        metaLeft: "Glow-in-the-dark print",
+        metaRight: "Perfect for late-night grinding",
+        price: 49,
+        accent: "#22c55e",
         accent2: "#a855f7",
-        image: "gaming-stream-overlay.png"
+        image: "gaming-pixel-arcade.png"
       },
       {
-        id: "school-project-cover",
-        name: "School Project Cover",
-        category: "school",
-        tag: "Title Slide",
-        title: "Project Title Page",
-        subtitle: "Name, class, date, and teacher neatly aligned.",
-        metaLeft: "History • Science • ELA",
-        metaRight: "Teacher-friendly minimalist look",
-        price: 4,
+        id: "gaming-neon-galaxy",
+        name: "Neon Galaxy Slide",
+        category: "gaming",
+        tag: "Esports Ready",
+        title: "Neon Galaxy Slide",
+        subtitle: "Galaxy gradient strap with subtle circuit pattern and gamer tag line.",
+        metaLeft: "Custom gamertag option",
+        metaRight: "Soft lining, no sock rub",
+        price: 52,
         accent: "#38bdf8",
-        accent2: "#6366f1",
-        image: "school-project-cover.png"
+        accent2: "#f97316",
+        image: "gaming-neon-galaxy.png"
       },
       {
-        id: "school-study-plan",
-        name: "Study Plan Board",
+        id: "school-notebook-doodle",
+        name: "Notebook Doodle Slide",
         category: "school",
-        tag: "Planner Slide",
-        title: "Weekly Study Plan",
-        subtitle: "Subjects, times, and priorities in one view.",
-        metaLeft: "Great before exams",
-        metaRight: "Helps you stay consistent",
-        price: 4,
-        accent: "#22c55e",
-        accent2: "#0ea5e9",
-        image: "school-study-plan.png"
+        tag: "Back to School",
+        title: "Notebook Doodle Slide",
+        subtitle: "White strap with blue notebook lines and hand-drawn doodles.",
+        metaLeft: "Perfect for hallway flexing",
+        metaRight: "Matches hoodies & backpacks",
+        price: 35,
+        accent: "#0ea5e9",
+        accent2: "#facc15",
+        image: "school-notebook-doodle.png"
       },
       {
-        id: "creator-sponsorship",
-        name: "Sponsorship Pitch Slide",
-        category: "creator",
-        tag: "Brand Deck",
-        title: "Sponsorship Overview",
-        subtitle: "Audience, views, engagement and packages.",
-        metaLeft: "For YouTubers & streamers",
-        metaRight: "Clean, pro, brandable",
-        price: 9,
-        accent: "#f97316",
+        id: "school-study-grind",
+        name: "Study Grind Slide",
+        category: "school",
+        tag: "Everyday Wear",
+        title: "Study Grind Slide",
+        subtitle: "Neutral base with icons for books, clocks and lightning bolts.",
+        metaLeft: "Lightweight, all-day comfort",
+        metaRight: "Goes with sweats or jeans",
+        price: 37,
+        accent: "#6b7280",
         accent2: "#22c55e",
-        image: "creator-sponsorship.png"
+        image: "school-study-grind.png"
       },
       {
-        id: "creator-content-calendar",
-        name: "Content Calendar Slide",
+        id: "creator-studio-lights",
+        name: "Creator Studio Slide",
         category: "creator",
-        tag: "Planner",
-        title: "Weekly Upload Schedule",
-        subtitle: "Videos, shorts, streams and collabs.",
-        metaLeft: "Stay consistent",
-        metaRight: "Map out your uploads",
-        price: 5,
+        tag: "Content Creator",
+        title: "Creator Studio Slide",
+        subtitle: "Ring-light glow print with subtle camera and mic icons.",
+        metaLeft: "Great for filming days",
+        metaRight: "Soft strap, no squeak",
+        price: 55,
         accent: "#a855f7",
-        accent2: "#38bdf8",
-        image: "creator-content-calendar.png"
+        accent2: "#22c55e",
+        image: "creator-studio-lights.png"
+      },
+      {
+        id: "creator-drop-day",
+        name: "Drop Day Slide",
+        category: "creator",
+        tag: "Limited Drop",
+        title: "Drop Day Slide",
+        subtitle: "Color-blocked strap with big ‘DROP’ text and barcode side hit.",
+        metaLeft: "Streetwear collab energy",
+        metaRight: "Perfect for IG & TikTok fit pics",
+        price: 60,
+        accent: "#ef4444",
+        accent2: "#000000",
+        image: "creator-drop-day.png"
       }
     ];
 
     // Cart state: { [id]: { product, qty } }
     const cart = {};
-
-    // --- DOM HELPERS ---
 
     const $ = (selector) => document.querySelector(selector);
     const $$ = (selector) => document.querySelectorAll(selector);
@@ -1504,7 +1498,6 @@
       });
     });
 
-    // Floating help button scrolls to Help page
     $("#helpFab").addEventListener("click", () => {
       setActivePage("help");
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1522,9 +1515,8 @@
       const img = document.createElement("img");
       img.className = "slide-photo";
       img.src = `slides/${product.image || product.id + ".png"}`;
-      img.alt = `${product.name} slide preview`;
+      img.alt = `${product.name} product photo`;
 
-      // Fallback if image missing
       const fallback = document.createElement("div");
       fallback.className = "slide-photo-fallback";
       fallback.style.background = `radial-gradient(circle at top, ${product.accent}, #020617)`;
@@ -1611,7 +1603,7 @@
 
         const label = document.createElement("span");
         label.className = "pill-label";
-        label.textContent = "Instant digital layout";
+        label.textContent = "Premium slide sandal";
 
         const btn = document.createElement("button");
         btn.className = "btn btn-primary";
@@ -1626,7 +1618,7 @@
         grid.appendChild(card);
       });
 
-      $("#shopCountText").textContent = `${filtered.length} template${
+      $("#shopCountText").textContent = `${filtered.length} slide${
         filtered.length !== 1 ? "s" : ""
       } shown`;
     }
@@ -1682,7 +1674,7 @@
       if (entries.length === 0) {
         itemsContainer.innerHTML = `
           <p class="cart-empty">
-            Your cart is empty. Visit the <strong>Shop</strong> tab to add your first slide template.
+            Your cart is empty. Visit the <strong>Shop</strong> tab to add your first slide design.
           </p>
         `;
       } else {
@@ -1751,7 +1743,6 @@
       $("#summaryTotal").textContent = `$${total.toFixed(2)}`;
     }
 
-    // Cart item controls
     $("#cartItemsContainer").addEventListener("click", (e) => {
       const actionBtn = e.target.closest("[data-action]");
       if (!actionBtn) return;
@@ -1782,7 +1773,7 @@
       const entries = Object.values(cart);
       if (!entries.length) {
         $("#checkoutNote").textContent =
-          "Your cart is empty — add some slide templates before checking out.";
+          "Your cart is empty — add some slides before checking out.";
         $("#checkoutNote").style.color = "var(--danger)";
         return;
       }
@@ -1791,7 +1782,7 @@
         0
       );
       $("#checkoutNote").textContent =
-        "Order simulated! Imagine we emailed you a download link with all your templates. Total: $" +
+        "Order simulated! Imagine we processed your slide order. Total: $" +
         total.toFixed(2) +
         " (before demo fees).";
       $("#checkoutNote").style.color = "var(--success)";
@@ -1800,12 +1791,12 @@
     // --- BUILDER LIVE PREVIEW ---
 
     function updateBuilderPreview() {
-      const title = $("#builderTitle").value.trim() || "Your Slide Title";
+      const title = $("#builderTitle").value.trim() || "Your Slide Name";
       const subtitle =
         $("#builderSubtitle").value.trim() ||
-        "Add a short description or tagline here.";
+        "Add a tagline like colors or number placement.";
       const badge =
-        $("#builderBadge").value.trim() || "Custom • One of One";
+        $("#builderBadge").value.trim() || "Custom drop";
 
       const layout = $("#builderLayout").value;
       const bgColor = $("#builderBgColor").value || "#0f172a";
@@ -1840,13 +1831,19 @@
       }
     }
 
-    ["builderTitle", "builderSubtitle", "builderBadge", "builderLayout", "builderBgColor", "builderAccentColor", "builderTags"].forEach(
-      (id) => {
-        const el = document.getElementById(id);
-        el.addEventListener("input", updateBuilderPreview);
-        el.addEventListener("change", updateBuilderPreview);
-      }
-    );
+    [
+      "builderTitle",
+      "builderSubtitle",
+      "builderBadge",
+      "builderLayout",
+      "builderBgColor",
+      "builderAccentColor",
+      "builderTags"
+    ].forEach((id) => {
+      const el = document.getElementById(id);
+      el.addEventListener("input", updateBuilderPreview);
+      el.addEventListener("change", updateBuilderPreview);
+    });
 
     // --- CONTACT FORM (fake submit) ---
 
@@ -1865,7 +1862,7 @@
       status.textContent =
         "Thanks, " +
         name +
-        "! In a real app this would send to support. For now, you can copy your message and paste it wherever you actually need help.";
+        "! In a real brand this would send to support. For now, you can copy your message and paste it wherever you actually need help.";
       status.style.color = "var(--success)";
     });
 
