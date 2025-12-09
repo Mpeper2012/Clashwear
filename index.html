@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SlideCraft Studio</title>
+  <title>SlideCraft Studio</html></title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -233,7 +233,7 @@
       }
     }
 
-    /* Shop */
+    /* Shop & product cards */
 
     .filters {
       display: flex;
@@ -308,68 +308,6 @@
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.09em;
-    }
-
-    .slide-preview {
-      border-radius: 14px;
-      padding: 10px 11px;
-      min-height: 120px;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, #1e293b, #020617);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .slide-preview-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .slide-title {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-
-    .slide-sub {
-      font-size: 11px;
-      color: #e5e7eb;
-      opacity: 0.9;
-    }
-
-    .slide-meta {
-      font-size: 10px;
-      color: #e5e7eb;
-      opacity: 0.75;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 4px;
-    }
-
-    .slide-pill {
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-    }
-
-    .slide-accent-blob {
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      border-radius: 999px;
-      filter: blur(18px);
-      opacity: 0.7;
-      right: -30px;
-      bottom: -40px;
-      pointer-events: none;
     }
 
     .product-body {
@@ -453,6 +391,87 @@
       border-color: #e5e7eb;
       color: #e5e7eb;
       background: rgba(15, 23, 42, 0.85);
+    }
+
+    /* REAL SLIDE PHOTO PREVIEW */
+
+    .slide-preview {
+      border-radius: 14px;
+      padding: 8px;
+      background: radial-gradient(circle at top, #020617, #020617);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .slide-photo-frame {
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.7);
+      position: relative;
+    }
+
+    .slide-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slide-photo-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), #020617);
+    }
+
+    .slide-photo-fallback-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .slide-photo-fallback-bar {
+      width: 70%;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.35);
+    }
+
+    .slide-preview-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slide-preview-title {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .slide-preview-tag {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+      white-space: nowrap;
+    }
+
+    .slide-preview-note {
+      font-size: 10px;
+      color: var(--muted);
     }
 
     /* Cart */
@@ -1343,8 +1362,7 @@
   </button>
 
   <script>
-    // --- DATA ---
-
+    // --- DATA: products with image filenames ---
     const products = [
       {
         id: "sports-final-recap",
@@ -1357,7 +1375,8 @@
         metaRight: "Perfect for end-of-season highlight decks.",
         price: 6,
         accent: "#38bdf8",
-        accent2: "#22c55e"
+        accent2: "#22c55e",
+        image: "sports-final-recap.png"
       },
       {
         id: "sports-season-stats",
@@ -1370,7 +1389,8 @@
         metaRight: "Ideal for coaches & captains",
         price: 7,
         accent: "#22c55e",
-        accent2: "#0ea5e9"
+        accent2: "#0ea5e9",
+        image: "sports-season-stats.png"
       },
       {
         id: "gaming-bracket",
@@ -1383,7 +1403,8 @@
         metaRight: "Perfect for Valorant, Fortnite, Rocket League",
         price: 5,
         accent: "#a855f7",
-        accent2: "#38bdf8"
+        accent2: "#38bdf8",
+        image: "gaming-bracket.png"
       },
       {
         id: "gaming-stream-overlay",
@@ -1396,7 +1417,8 @@
         metaRight: "Makes your stream look pro instantly",
         price: 8,
         accent: "#f97316",
-        accent2: "#a855f7"
+        accent2: "#a855f7",
+        image: "gaming-stream-overlay.png"
       },
       {
         id: "school-project-cover",
@@ -1409,7 +1431,8 @@
         metaRight: "Teacher-friendly minimalist look",
         price: 4,
         accent: "#38bdf8",
-        accent2: "#6366f1"
+        accent2: "#6366f1",
+        image: "school-project-cover.png"
       },
       {
         id: "school-study-plan",
@@ -1422,7 +1445,8 @@
         metaRight: "Helps you stay consistent",
         price: 4,
         accent: "#22c55e",
-        accent2: "#0ea5e9"
+        accent2: "#0ea5e9",
+        image: "school-study-plan.png"
       },
       {
         id: "creator-sponsorship",
@@ -1435,7 +1459,8 @@
         metaRight: "Clean, pro, brandable",
         price: 9,
         accent: "#f97316",
-        accent2: "#22c55e"
+        accent2: "#22c55e",
+        image: "creator-sponsorship.png"
       },
       {
         id: "creator-content-calendar",
@@ -1448,7 +1473,8 @@
         metaRight: "Map out your uploads",
         price: 5,
         accent: "#a855f7",
-        accent2: "#38bdf8"
+        accent2: "#38bdf8",
+        image: "creator-content-calendar.png"
       }
     ];
 
@@ -1490,34 +1516,53 @@
       const wrapper = document.createElement("div");
       wrapper.className = "slide-preview";
 
-      wrapper.style.background = `linear-gradient(135deg, rgba(15,23,42,1), rgba(15,23,42,0.3)), radial-gradient(circle at top, ${product.accent}, #020617)`;
+      const frame = document.createElement("div");
+      frame.className = "slide-photo-frame";
 
-      const inner = document.createElement("div");
-      inner.className = "slide-preview-inner";
+      const img = document.createElement("img");
+      img.className = "slide-photo";
+      img.src = `slides/${product.image || product.id + ".png"}`;
+      img.alt = `${product.name} slide preview`;
 
-      const title = document.createElement("div");
-      title.className = "slide-title";
-      title.textContent = product.title;
+      // Fallback if image missing
+      const fallback = document.createElement("div");
+      fallback.className = "slide-photo-fallback";
+      fallback.style.background = `radial-gradient(circle at top, ${product.accent}, #020617)`;
 
-      const sub = document.createElement("div");
-      sub.className = "slide-sub";
-      sub.textContent = product.subtitle;
+      const fbTitle = document.createElement("div");
+      fbTitle.className = "slide-photo-fallback-title";
+      fbTitle.textContent = product.title;
 
-      const meta = document.createElement("div");
-      meta.className = "slide-meta";
-      const left = document.createElement("span");
-      left.textContent = product.metaLeft;
-      const right = document.createElement("span");
-      right.textContent = product.metaRight;
-      meta.append(left, right);
+      const fbBar = document.createElement("div");
+      fbBar.className = "slide-photo-fallback-bar";
 
-      inner.append(title, sub, meta);
+      fallback.append(fbTitle, fbBar);
 
-      const accentBlob = document.createElement("div");
-      accentBlob.className = "slide-accent-blob";
-      accentBlob.style.background = `radial-gradient(circle, ${product.accent2}, transparent)`;
+      img.onerror = () => {
+        img.style.display = "none";
+        fallback.style.display = "flex";
+      };
 
-      wrapper.append(inner, accentBlob);
+      frame.append(img, fallback);
+
+      const infoRow = document.createElement("div");
+      infoRow.className = "slide-preview-info";
+
+      const infoTitle = document.createElement("div");
+      infoTitle.className = "slide-preview-title";
+      infoTitle.textContent = product.title;
+
+      const infoTag = document.createElement("div");
+      infoTag.className = "slide-preview-tag";
+      infoTag.textContent = product.tag;
+
+      infoRow.append(infoTitle, infoTag);
+
+      const note = document.createElement("div");
+      note.className = "slide-preview-note";
+      note.textContent = product.subtitle;
+
+      wrapper.append(frame, infoRow, note);
 
       return wrapper;
     }
@@ -1626,11 +1671,9 @@
         (sum, item) => sum + item.product.price * item.qty,
         0
       );
-      // simple fixed fee example
       const fee = subtotal > 0 ? Math.max(1, subtotal * 0.05) : 0;
       const total = subtotal + fee;
 
-      // Nav badge + item count label
       $("#navCartCount").textContent = count;
       $("#cartItemCountLabel").textContent = `${count} item${
         count !== 1 ? "s" : ""
