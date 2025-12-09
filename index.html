@@ -1,206 +1,157 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Menu, X, Plus, Minus, Trash2, Home, Info, HelpCircle, Mail, Palette } from 'lucide-react';
+import { ShoppingCart, Menu, X, Star, Truck, Shield, RotateCcw } from 'lucide-react';
 
-const CustomSlidesShop = () => {
+const SlideWebsite = () => {
   const [currentPage, setCurrentPage] = useState('home');
-  const [cart, setCart] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [customSlide, setCustomSlide] = useState({
-    baseColor: '#000000',
-    textColor: '#FFFFFF',
-    text: '',
-    design: 'solid'
-  });
 
-  const premadeSlides = [
+  const products = [
     {
       id: 1,
-      name: 'Lakers Purple & Gold',
-      category: 'Sports',
+      name: 'Cloud Comfort Slide',
       price: 49.99,
-      image: 'linear-gradient(135deg, #552583 0%, #FDB927 100%)',
-      description: 'Show your Lakers pride with these iconic purple and gold slides'
+      image: 'https://images.unsplash.com/photo-1603487742131-4160ec999306?w=500&h=500&fit=crop',
+      description: 'Ultra-soft cushioning with cloud-like comfort',
+      rating: 4.8,
+      reviews: 342,
+      category: 'comfort',
+      featured: true
     },
     {
       id: 2,
-      name: 'Miami Heat Vice',
-      category: 'Sports',
-      price: 54.99,
-      image: 'linear-gradient(135deg, #F9A01B 0%, #FF6699 50%, #00B8D4 100%)',
-      description: 'Inspired by Miami Vice, these slides bring the heat'
+      name: 'Sport Slide Pro',
+      price: 59.99,
+      image: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=500&h=500&fit=crop',
+      description: 'Athletic design with superior arch support',
+      rating: 4.9,
+      reviews: 521,
+      category: 'sport',
+      featured: true
     },
     {
       id: 3,
-      name: 'Fortnite Victory Royale',
-      category: 'Video Games',
-      price: 52.99,
-      image: 'linear-gradient(135deg, #7B2EFF 0%, #00D4FF 100%)',
-      description: 'Celebrate your Victory Royale in style'
+      name: 'Luxury Leather Slide',
+      price: 89.99,
+      image: 'https://images.unsplash.com/photo-1562183241-b937e95585b6?w=500&h=500&fit=crop',
+      description: 'Premium leather with elegant craftsmanship',
+      rating: 4.7,
+      reviews: 198,
+      category: 'luxury',
+      featured: false
     },
     {
       id: 4,
-      name: 'PlayStation Classic',
-      category: 'Video Games',
-      price: 49.99,
-      image: 'linear-gradient(135deg, #003087 0%, #0070CC 100%)',
-      description: 'Classic PlayStation blue for true gamers'
+      name: 'Beach Wave Slide',
+      price: 39.99,
+      image: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=500&h=500&fit=crop',
+      description: 'Water-resistant design perfect for poolside',
+      rating: 4.6,
+      reviews: 287,
+      category: 'casual',
+      featured: true
     },
     {
       id: 5,
-      name: 'Yankees Pinstripe',
-      category: 'Sports',
-      price: 51.99,
-      image: 'linear-gradient(135deg, #0C2340 0%, #C4CED4 100%)',
-      description: 'Classic Yankees navy with subtle pinstripe vibes'
+      name: 'Urban Street Slide',
+      price: 64.99,
+      image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&h=500&fit=crop',
+      description: 'Trendy streetwear style with bold colors',
+      rating: 4.8,
+      reviews: 445,
+      category: 'casual',
+      featured: false
     },
     {
       id: 6,
-      name: 'Minecraft Creeper',
-      category: 'Video Games',
-      price: 48.99,
-      image: 'linear-gradient(135deg, #00A800 0%, #66FF66 100%)',
-      description: 'Explosive style inspired by the iconic Creeper'
-    },
-    {
-      id: 7,
-      name: 'Golden State Warriors',
-      category: 'Sports',
-      price: 53.99,
-      image: 'linear-gradient(135deg, #1D428A 0%, #FFC72C 100%)',
-      description: 'Championship-worthy Warriors blue and gold'
-    },
-    {
-      id: 8,
-      name: 'Call of Duty Warzone',
-      category: 'Video Games',
-      price: 55.99,
-      image: 'linear-gradient(135deg, #1C1C1C 0%, #FF6B00 50%, #000000 100%)',
-      description: 'Tactical black and orange for the battlefield'
-    },
-    {
-      id: 9,
-      name: 'Sunset Wave',
-      category: 'Lifestyle',
-      price: 45.99,
-      image: 'linear-gradient(135deg, #FF6B6B 0%, #FFD93D 50%, #6BCF7F 100%)',
-      description: 'Tropical sunset vibes for beach days'
-    },
-    {
-      id: 10,
-      name: 'Chicago Bulls Classic',
-      category: 'Sports',
-      price: 52.99,
-      image: 'linear-gradient(135deg, #CE1141 0%, #000000 100%)',
-      description: 'Legendary Bulls red and black combination'
-    },
-    {
-      id: 11,
-      name: 'Rocket League Boost',
-      category: 'Video Games',
-      price: 50.99,
-      image: 'linear-gradient(135deg, #FF1E56 0%, #FFAC41 50%, #1E90FF 100%)',
-      description: 'High-octane colors from your favorite car soccer game'
-    },
-    {
-      id: 12,
-      name: 'Ocean Breeze',
-      category: 'Lifestyle',
-      price: 44.99,
-      image: 'linear-gradient(135deg, #00C9FF 0%, #92FE9D 100%)',
-      description: 'Cool aqua tones for a refreshing look'
+      name: 'Eco Slide Natural',
+      price: 54.99,
+      image: 'https://images.unsplash.com/photo-1581101767113-1677fc2beaa8?w=500&h=500&fit=crop',
+      description: 'Sustainable materials, earth-friendly design',
+      rating: 4.9,
+      reviews: 312,
+      category: 'eco',
+      featured: true
     }
   ];
 
-  const addToCart = (item) => {
-    const existing = cart.find(i => i.id === item.id && i.isCustom === item.isCustom);
+  const addToCart = (product) => {
+    const existing = cartItems.find(item => item.id === product.id);
     if (existing) {
-      setCart(cart.map(i => 
-        i.id === item.id && i.isCustom === item.isCustom 
-          ? {...i, quantity: i.quantity + 1} 
-          : i
+      setCartItems(cartItems.map(item =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
       ));
     } else {
-      setCart([...cart, {...item, quantity: 1}]);
+      setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
   };
 
-  const updateQuantity = (id, isCustom, delta) => {
-    setCart(cart.map(item => 
-      item.id === id && item.isCustom === isCustom
-        ? {...item, quantity: Math.max(0, item.quantity + delta)}
-        : item
-    ).filter(item => item.quantity > 0));
+  const removeFromCart = (id) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
   };
 
-  const removeFromCart = (id, isCustom) => {
-    setCart(cart.filter(item => !(item.id === id && item.isCustom === isCustom)));
+  const updateQuantity = (id, change) => {
+    setCartItems(cartItems.map(item => {
+      if (item.id === id) {
+        const newQty = item.quantity + change;
+        return newQty > 0 ? { ...item, quantity: newQty } : item;
+      }
+      return item;
+    }).filter(item => item.quantity > 0));
   };
 
-  const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const HomePage = () => (
-    <div className="space-y-12">
-      <div className="relative h-96 rounded-2xl overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 opacity-90"></div>
-        <div className="relative h-full flex flex-col items-center justify-center text-white p-8 text-center">
-          <h1 className="text-5xl font-bold mb-4">Step Into Style</h1>
-          <p className="text-xl mb-6 max-w-2xl">Premium custom slides designed by you, or choose from our exclusive collection</p>
-          <div className="flex gap-4">
-            <button 
+    <div>
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 text-white">
+        <div className="max-w-7xl mx-auto px-4 py-24 sm:py-32">
+          <div className="text-center">
+            <h1 className="text-5xl sm:text-7xl font-bold mb-6 animate-fade-in">
+              Step Into Comfort
+            </h1>
+            <p className="text-xl sm:text-2xl mb-8 text-blue-100">
+              Premium slides designed for your lifestyle
+            </p>
+            <button
               onClick={() => setCurrentPage('shop')}
-              className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
+              className="bg-white text-purple-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-50 transition-all transform hover:scale-105"
             >
               Shop Now
             </button>
-            <button 
-              onClick={() => setCurrentPage('customize')}
-              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition"
-            >
-              Customize
-            </button>
           </div>
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
-        <div className="text-center p-6">
-          <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Palette className="text-purple-600" size={32} />
-          </div>
-          <h3 className="text-xl font-bold mb-2">Custom Design</h3>
-          <p className="text-gray-600">Create your perfect slide with our customization tool</p>
+      {/* Featured Deals */}
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold mb-4">Featured Deals</h2>
+          <p className="text-gray-600 text-lg">Our most popular slides at special prices</p>
         </div>
-        <div className="text-center p-6">
-          <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <ShoppingCart className="text-pink-600" size={32} />
-          </div>
-          <h3 className="text-xl font-bold mb-2">Premium Quality</h3>
-          <p className="text-gray-600">High-quality materials for maximum comfort</p>
-        </div>
-        <div className="text-center p-6">
-          <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Home className="text-orange-600" size={32} />
-          </div>
-          <h3 className="text-xl font-bold mb-2">Fast Shipping</h3>
-          <p className="text-gray-600">Get your slides delivered in 3-5 business days</p>
-        </div>
-      </div>
-
-      <div>
-        <h2 className="text-3xl font-bold mb-6">Featured Slides</h2>
-        <div className="grid md:grid-cols-4 gap-6">
-          {premadeSlides.slice(0, 4).map(slide => (
-            <div key={slide.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
-              <div className="h-48" style={{background: slide.image}}></div>
-              <div className="p-4">
-                <h3 className="font-bold mb-1">{slide.name}</h3>
-                <p className="text-sm text-gray-600 mb-2">{slide.category}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-bold text-purple-600">${slide.price}</span>
-                  <button 
-                    onClick={() => addToCart(slide)}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition text-sm"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {products.filter(p => p.featured).map(product => (
+            <div key={product.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2">
+              <div className="relative">
+                <img src={product.image} alt={product.name} className="w-full h-64 object-cover" />
+                <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                  DEAL
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-2">{product.name}</h3>
+                <div className="flex items-center mb-2">
+                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  <span className="ml-1 text-sm text-gray-600">{product.rating} ({product.reviews})</span>
+                </div>
+                <p className="text-gray-600 mb-4">{product.description}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold text-purple-600">${product.price}</span>
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
                   >
                     Add to Cart
                   </button>
@@ -208,454 +159,304 @@ const CustomSlidesShop = () => {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Features */}
+      <div className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Truck className="w-8 h-8 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Free Shipping</h3>
+              <p className="text-gray-600">On orders over $50</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">1-Year Warranty</h3>
+              <p className="text-gray-600">Quality guaranteed</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <RotateCcw className="w-8 h-8 text-pink-600" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">30-Day Returns</h3>
+              <p className="text-gray-600">Easy returns & exchanges</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 
-  const ShopPage = () => {
-    const [filter, setFilter] = useState('All');
-    const categories = ['All', 'Sports', 'Video Games', 'Lifestyle'];
-    const filtered = filter === 'All' ? premadeSlides : premadeSlides.filter(s => s.category === filter);
-
-    return (
-      <div>
-        <h1 className="text-4xl font-bold mb-6">Shop Slides</h1>
-        <div className="flex gap-3 mb-8 flex-wrap">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`px-6 py-2 rounded-lg font-semibold transition ${
-                filter === cat 
-                  ? 'bg-purple-600 text-white' 
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filtered.map(slide => (
-            <div key={slide.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
-              <div className="h-48" style={{background: slide.image}}></div>
-              <div className="p-4">
-                <span className="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded">{slide.category}</span>
-                <h3 className="font-bold mt-2 mb-1">{slide.name}</h3>
-                <p className="text-sm text-gray-600 mb-3">{slide.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xl font-bold text-purple-600">${slide.price}</span>
-                  <button 
-                    onClick={() => addToCart(slide)}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
+  const ShopPage = () => (
+    <div className="max-w-7xl mx-auto px-4 py-16">
+      <h1 className="text-4xl font-bold mb-8">Our Collection</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {products.map(product => (
+          <div key={product.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all">
+            <img src={product.image} alt={product.name} className="w-full h-72 object-cover" />
+            <div className="p-6">
+              <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
+              <div className="flex items-center mb-3">
+                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                <span className="ml-2 text-gray-600">{product.rating} ({product.reviews} reviews)</span>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const CustomizePage = () => {
-    const handleAddCustom = () => {
-      if (!customSlide.text.trim()) {
-        alert('Please add some text to your custom slide!');
-        return;
-      }
-      const custom = {
-        id: Date.now(),
-        name: `Custom: ${customSlide.text}`,
-        price: 59.99,
-        image: customSlide.design === 'solid' 
-          ? customSlide.baseColor 
-          : `linear-gradient(135deg, ${customSlide.baseColor} 0%, ${customSlide.textColor} 100%)`,
-        description: `Custom slide with "${customSlide.text}"`,
-        isCustom: true,
-        details: {...customSlide}
-      };
-      addToCart(custom);
-      alert('Custom slide added to cart!');
-    };
-
-    return (
-      <div>
-        <h1 className="text-4xl font-bold mb-6">Customize Your Slides</h1>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <div>
-              <label className="block font-semibold mb-2">Design Style</label>
-              <select 
-                value={customSlide.design}
-                onChange={(e) => setCustomSlide({...customSlide, design: e.target.value})}
-                className="w-full p-3 border-2 border-gray-300 rounded-lg"
-              >
-                <option value="solid">Solid Color</option>
-                <option value="gradient">Gradient</option>
-              </select>
-            </div>
-            
-            <div>
-              <label className="block font-semibold mb-2">Base Color</label>
-              <div className="flex gap-3">
-                <input 
-                  type="color"
-                  value={customSlide.baseColor}
-                  onChange={(e) => setCustomSlide({...customSlide, baseColor: e.target.value})}
-                  className="w-20 h-12 rounded cursor-pointer"
-                />
-                <input 
-                  type="text"
-                  value={customSlide.baseColor}
-                  onChange={(e) => setCustomSlide({...customSlide, baseColor: e.target.value})}
-                  className="flex-1 p-3 border-2 border-gray-300 rounded-lg"
-                />
-              </div>
-            </div>
-
-            {customSlide.design === 'gradient' && (
-              <div>
-                <label className="block font-semibold mb-2">Gradient End Color</label>
-                <div className="flex gap-3">
-                  <input 
-                    type="color"
-                    value={customSlide.textColor}
-                    onChange={(e) => setCustomSlide({...customSlide, textColor: e.target.value})}
-                    className="w-20 h-12 rounded cursor-pointer"
-                  />
-                  <input 
-                    type="text"
-                    value={customSlide.textColor}
-                    onChange={(e) => setCustomSlide({...customSlide, textColor: e.target.value})}
-                    className="flex-1 p-3 border-2 border-gray-300 rounded-lg"
-                  />
-                </div>
-              </div>
-            )}
-
-            <div>
-              <label className="block font-semibold mb-2">Custom Text (Optional)</label>
-              <input 
-                type="text"
-                value={customSlide.text}
-                onChange={(e) => setCustomSlide({...customSlide, text: e.target.value})}
-                placeholder="e.g., Your Name, Team, etc."
-                maxLength={20}
-                className="w-full p-3 border-2 border-gray-300 rounded-lg"
-              />
-              <p className="text-sm text-gray-500 mt-1">{customSlide.text.length}/20 characters</p>
-            </div>
-
-            <div className="bg-purple-50 p-4 rounded-lg">
-              <p className="font-bold text-lg">Price: $59.99</p>
-              <p className="text-sm text-gray-600">Custom slides include premium materials and personalization</p>
-            </div>
-
-            <button 
-              onClick={handleAddCustom}
-              className="w-full bg-purple-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-purple-700 transition"
-            >
-              Add to Cart
-            </button>
-          </div>
-
-          <div>
-            <div className="sticky top-4">
-              <h3 className="font-bold text-xl mb-4">Preview</h3>
-              <div className="bg-white rounded-xl shadow-2xl p-8">
-                <div 
-                  className="w-full h-64 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-lg"
-                  style={{
-                    background: customSlide.design === 'solid' 
-                      ? customSlide.baseColor 
-                      : `linear-gradient(135deg, ${customSlide.baseColor} 0%, ${customSlide.textColor} 100%)`,
-                    color: customSlide.design === 'solid' ? customSlide.textColor : '#FFFFFF'
-                  }}
+              <p className="text-gray-600 mb-4">{product.description}</p>
+              <div className="flex items-center justify-between">
+                <span className="text-3xl font-bold text-purple-600">${product.price}</span>
+                <button
+                  onClick={() => addToCart(product)}
+                  className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-semibold"
                 >
-                  {customSlide.text || 'Your Text Here'}
-                </div>
+                  Add to Cart
+                </button>
               </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
-    );
-  };
-
-  const CartPage = () => (
-    <div>
-      <h1 className="text-4xl font-bold mb-6">Shopping Cart</h1>
-      {cart.length === 0 ? (
-        <div className="text-center py-16">
-          <ShoppingCart size={64} className="mx-auto text-gray-300 mb-4" />
-          <p className="text-xl text-gray-500">Your cart is empty</p>
-          <button 
-            onClick={() => setCurrentPage('shop')}
-            className="mt-4 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition"
-          >
-            Start Shopping
-          </button>
-        </div>
-      ) : (
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2 space-y-4">
-            {cart.map((item) => (
-              <div key={`${item.id}-${item.isCustom}`} className="bg-white p-4 rounded-xl shadow flex gap-4">
-                <div 
-                  className="w-24 h-24 rounded-lg flex-shrink-0"
-                  style={{background: item.image}}
-                ></div>
-                <div className="flex-1">
-                  <h3 className="font-bold">{item.name}</h3>
-                  <p className="text-gray-600 text-sm">${item.price.toFixed(2)}</p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <button 
-                      onClick={() => updateQuantity(item.id, item.isCustom, -1)}
-                      className="bg-gray-200 p-1 rounded hover:bg-gray-300"
-                    >
-                      <Minus size={16} />
-                    </button>
-                    <span className="w-8 text-center font-semibold">{item.quantity}</span>
-                    <button 
-                      onClick={() => updateQuantity(item.id, item.isCustom, 1)}
-                      className="bg-gray-200 p-1 rounded hover:bg-gray-300"
-                    >
-                      <Plus size={16} />
-                    </button>
-                  </div>
-                </div>
-                <div className="text-right flex flex-col justify-between">
-                  <button 
-                    onClick={() => removeFromCart(item.id, item.isCustom)}
-                    className="text-red-500 hover:text-red-700"
-                  >
-                    <Trash2 size={20} />
-                  </button>
-                  <p className="font-bold">${(item.price * item.quantity).toFixed(2)}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow h-fit sticky top-4">
-            <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
-            <div className="space-y-2 mb-4">
-              <div className="flex justify-between">
-                <span>Subtotal</span>
-                <span>${cartTotal.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Shipping</span>
-                <span>$9.99</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Tax</span>
-                <span>${(cartTotal * 0.08).toFixed(2)}</span>
-              </div>
-              <div className="border-t pt-2 flex justify-between font-bold text-lg">
-                <span>Total</span>
-                <span>${(cartTotal + 9.99 + cartTotal * 0.08).toFixed(2)}</span>
-              </div>
-            </div>
-            <button className="w-full bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-purple-700 transition">
-              Proceed to Checkout
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 
   const AboutPage = () => (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6">About Us</h1>
-      <div className="bg-white rounded-xl shadow-lg p-8 space-y-6">
-        <p className="text-lg">
-          Welcome to SlideStyle, where comfort meets creativity. We are passionate about creating the perfect slides that express your unique personality and style.
+    <div className="max-w-4xl mx-auto px-4 py-16">
+      <h1 className="text-5xl font-bold mb-8 text-center">About Us</h1>
+     
+      <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-8 mb-12">
+        <h2 className="text-3xl font-bold mb-4">Our Story</h2>
+        <p className="text-lg text-gray-700 leading-relaxed mb-4">
+          Founded in 2020, we set out to revolutionize the footwear industry with one simple mission: create the most comfortable, stylish, and durable slides on the market. What started as a small project in our garage has grown into a brand trusted by thousands of customers worldwide.
         </p>
-        <p>
-          Founded in 2020, we started with a simple mission: to make high-quality, customizable slides accessible to everyone. Whether you are a sports fan, a gamer, or someone who loves unique fashion, we have something for you.
+        <p className="text-lg text-gray-700 leading-relaxed">
+          Every slide we design is crafted with meticulous attention to detail, combining premium materials with innovative ergonomic technology. We believe that comfort should never compromise style, and style should never compromise comfort.
         </p>
-        <h2 className="text-2xl font-bold mt-8">Our Values</h2>
-        <ul className="space-y-3">
-          <li className="flex items-start gap-3">
-            <span className="text-purple-600 font-bold">✓</span>
-            <div>
-              <strong>Quality First:</strong> We use premium materials to ensure your slides last for years.
-            </div>
-          </li>
-          <li className="flex items-start gap-3">
-            <span className="text-purple-600 font-bold">✓</span>
-            <div>
-              <strong>Creative Freedom:</strong> Your style, your way. Customize every detail.
-            </div>
-          </li>
-          <li className="flex items-start gap-3">
-            <span className="text-purple-600 font-bold">✓</span>
-            <div>
-              <strong>Customer Satisfaction:</strong> We are here to make sure you love your slides.
-            </div>
-          </li>
-        </ul>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8 mb-12">
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <h3 className="text-2xl font-bold mb-4 text-purple-600">Our Values</h3>
+          <ul className="space-y-3 text-gray-700">
+            <li className="flex items-start">
+              <span className="text-purple-600 mr-2">✓</span>
+              <span>Quality craftsmanship in every product</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-purple-600 mr-2">✓</span>
+              <span>Sustainable and eco-friendly materials</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-purple-600 mr-2">✓</span>
+              <span>Customer satisfaction above all</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-purple-600 mr-2">✓</span>
+              <span>Innovation in comfort technology</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <h3 className="text-2xl font-bold mb-4 text-blue-600">Why Choose Us?</h3>
+          <ul className="space-y-3 text-gray-700">
+            <li className="flex items-start">
+              <span className="text-blue-600 mr-2">★</span>
+              <span>Premium materials sourced globally</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-blue-600 mr-2">★</span>
+              <span>Ergonomic designs tested by experts</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-blue-600 mr-2">★</span>
+              <span>30-day satisfaction guarantee</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-blue-600 mr-2">★</span>
+              <span>Award-winning customer service</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-2xl p-12 text-center">
+        <h3 className="text-3xl font-bold mb-4">Join Our Community</h3>
+        <p className="text-xl mb-6">Over 50,000 happy customers worldwide</p>
+        <button
+          onClick={() => setCurrentPage('shop')}
+          className="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+        >
+          Start Shopping
+        </button>
       </div>
     </div>
   );
 
-  const ContactPage = () => (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <div className="space-y-6 mb-8">
-          <div className="flex items-center gap-4">
-            <Mail className="text-purple-600" size={24} />
-            <div>
-              <p className="font-semibold">Email</p>
-              <p className="text-gray-600">support@slidestyle.com</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <Home className="text-purple-600" size={24} />
-            <div>
-              <p className="font-semibold">Address</p>
-              <p className="text-gray-600">123 Slide Street, Fashion District, CA 90210</p>
-            </div>
-          </div>
-        </div>
-        
-        <form className="space-y-4">
-          <div>
-            <label className="block font-semibold mb-2">Name</label>
-            <input type="text" className="w-full p-3 border-2 border-gray-300 rounded-lg" placeholder="Your name" />
-          </div>
-          <div>
-            <label className="block font-semibold mb-2">Email</label>
-            <input type="email" className="w-full p-3 border-2 border-gray-300 rounded-lg" placeholder="your@email.com" />
-          </div>
-          <div>
-            <label className="block font-semibold mb-2">Message</label>
-            <textarea className="w-full p-3 border-2 border-gray-300 rounded-lg h-32" placeholder="How can we help you?"></textarea>
-          </div>
-          <button type="submit" className="w-full bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-purple-700 transition">
-            Send Message
+  const CartPage = () => (
+    <div className="max-w-4xl mx-auto px-4 py-16">
+      <h1 className="text-4xl font-bold mb-8">Shopping Cart</h1>
+     
+      {cartItems.length === 0 ? (
+        <div className="text-center py-16">
+          <ShoppingCart className="w-24 h-24 mx-auto text-gray-300 mb-4" />
+          <p className="text-xl text-gray-600 mb-6">Your cart is empty</p>
+          <button
+            onClick={() => setCurrentPage('shop')}
+            className="bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            Continue Shopping
           </button>
-        </form>
-      </div>
-    </div>
-  );
+        </div>
+      ) : (
+        <>
+          <div className="space-y-4 mb-8">
+            {cartItems.map(item => (
+              <div key={item.id} className="bg-white rounded-xl shadow-lg p-6 flex items-center gap-6">
+                <img src={item.image} alt={item.name} className="w-24 h-24 object-cover rounded-lg" />
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold mb-1">{item.name}</h3>
+                  <p className="text-gray-600">${item.price}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => updateQuantity(item.id, -1)}
+                    className="bg-gray-200 w-8 h-8 rounded-full hover:bg-gray-300 transition-colors"
+                  >
+                    -
+                  </button>
+                  <span className="text-lg font-semibold w-8 text-center">{item.quantity}</span>
+                  <button
+                    onClick={() => updateQuantity(item.id, 1)}
+                    className="bg-gray-200 w-8 h-8 rounded-full hover:bg-gray-300 transition-colors"
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="text-xl font-bold text-purple-600 w-24 text-right">
+                  ${(item.price * item.quantity).toFixed(2)}
+                </div>
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="text-red-500 hover:text-red-700 transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            ))}
+          </div>
 
-  const HelpPage = () => (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6">Help Center</h1>
-      <div className="space-y-4">
-        <div className="bg-white rounded-xl shadow p-6">
-          <h3 className="font-bold text-xl mb-2">How do I customize my slides?</h3>
-          <p className="text-gray-600">
-            Click on the Customize button in the navigation menu. Choose your colors, design style, and add custom text. Preview your design and add it to your cart when you are happy with it!
-          </p>
-        </div>
-        <div className="bg-white rounded-xl shadow p-6">
-          <h3 className="font-bold text-xl mb-2">What is your return policy?</h3>
-          <p className="text-gray-600">
-            We offer a 30-day return policy for unused slides in original condition. Custom slides are final sale unless there is a manufacturing defect.
-          </p>
-        </div>
-        <div className="bg-white rounded-xl shadow p-6">
-          <h3 className="font-bold text-xl mb-2">How long does shipping take?</h3>
-          <p className="text-gray-600">
-            Standard shipping takes 3-5 business days. Custom slides may take an additional 2-3 days for production. Express shipping is available at checkout.
-          </p>
-        </div>
-        <div className="bg-white rounded-xl shadow p-6">
-          <h3 className="font-bold text-xl mb-2">What sizes do you offer?</h3>
-          <p className="text-gray-600">
-            We offer sizes from US Men sizes 6 to 14. All sizes are unisex and can be worn by anyone. Check our size guide for detailed measurements.
-          </p>
-        </div>
-        <div className="bg-white rounded-xl shadow p-6">
-          <h3 className="font-bold text-xl mb-2">How do I care for my slides?</h3>
-          <p className="text-gray-600">
-            Wipe clean with a damp cloth. Avoid prolonged exposure to direct sunlight. Do not machine wash. Let air dry completely before wearing.
-          </p>
-        </div>
-      </div>
+          <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-8">
+            <div className="flex justify-between items-center mb-6">
+              <span className="text-2xl font-bold">Total:</span>
+              <span className="text-3xl font-bold text-purple-600">${cartTotal.toFixed(2)}</span>
+            </div>
+            <button className="w-full bg-purple-600 text-white py-4 rounded-lg text-lg font-semibold hover:bg-purple-700 transition-colors">
+              Proceed to Checkout
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-lg sticky top-0 z-50">
+      {/* Navigation */}
+      <nav className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setCurrentPage('home')}>
-              <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg"></div>
-              <span className="text-2xl font-bold">SlideStyle</span>
+          <div className="flex justify-between items-center h-16">
+            <div className="text-2xl font-bold text-purple-600 cursor-pointer" onClick={() => setCurrentPage('home')}>
+              SlideLife
             </div>
-            
-            <div className="hidden md:flex gap-6 items-center">
-              <button onClick={() => setCurrentPage('home')} className="hover:text-purple-600 transition font-semibold">Home</button>
-              <button onClick={() => setCurrentPage('shop')} className="hover:text-purple-600 transition font-semibold">Shop</button>
-              <button onClick={() => setCurrentPage('customize')} className="hover:text-purple-600 transition font-semibold">Customize</button>
-              <button onClick={() => setCurrentPage('about')} className="hover:text-purple-600 transition font-semibold">About</button>
-              <button onClick={() => setCurrentPage('contact')} className="hover:text-purple-600 transition font-semibold">Contact</button>
-              <button onClick={() => setCurrentPage('help')} className="hover:text-purple-600 transition font-semibold">Help</button>
-              <button 
+           
+            <div className="hidden md:flex space-x-8">
+              <button onClick={() => setCurrentPage('home')} className="hover:text-purple-600 transition-colors font-medium">
+                Home
+              </button>
+              <button onClick={() => setCurrentPage('shop')} className="hover:text-purple-600 transition-colors font-medium">
+                Shop
+              </button>
+              <button onClick={() => setCurrentPage('about')} className="hover:text-purple-600 transition-colors font-medium">
+                About
+              </button>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <button
                 onClick={() => setCurrentPage('cart')}
-                className="relative bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition flex items-center gap-2"
+                className="relative hover:text-purple-600 transition-colors"
               >
-                <ShoppingCart size={20} />
+                <ShoppingCart className="w-6 h-6" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-pink-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {cartCount}
                   </span>
                 )}
               </button>
+              <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+                {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
             </div>
-
-            <button 
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden"
-            >
-              {menuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
 
           {menuOpen && (
             <div className="md:hidden pb-4 space-y-2">
-              <button onClick={() => { setCurrentPage('home'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600 transition font-semibold">Home</button>
-              <button onClick={() => { setCurrentPage('shop'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600 transition font-semibold">Shop</button>
-              <button onClick={() => { setCurrentPage('customize'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600 transition font-semibold">Customize</button>
-              <button onClick={() => { setCurrentPage('about'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600 transition font-semibold">About</button>
-              <button onClick={() => { setCurrentPage('contact'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600 transition font-semibold">Contact</button>
-              <button onClick={() => { setCurrentPage('help'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600 transition font-semibold">Help</button>
-              <button onClick={() => { setCurrentPage('cart'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600 transition font-semibold">
-                Cart {cartCount > 0 && `(${cartCount})`}
+              <button onClick={() => { setCurrentPage('home'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600">
+                Home
+              </button>
+              <button onClick={() => { setCurrentPage('shop'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600">
+                Shop
+              </button>
+              <button onClick={() => { setCurrentPage('about'); setMenuOpen(false); }} className="block w-full text-left py-2 hover:text-purple-600">
+                About
               </button>
             </div>
           )}
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        {currentPage === 'home' && <HomePage />}
-        {currentPage === 'shop' && <ShopPage />}
-        {currentPage === 'customize' && <CustomizePage />}
-        {currentPage === 'cart' && <CartPage />}
-        {currentPage === 'about' && <AboutPage />}
-        {currentPage === 'contact' && <ContactPage />}
-        {currentPage === 'help' && <HelpPage />}
-      </main>
+      {/* Page Content */}
+      {currentPage === 'home' && <HomePage />}
+      {currentPage === 'shop' && <ShopPage />}
+      {currentPage === 'about' && <AboutPage />}
+      {currentPage === 'cart' && <CartPage />}
 
-      <footer className="bg-gray-900 text-white mt-16 py-8">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="mb-2">© 2024 SlideStyle. All rights reserved.</p>
-          <p className="text-gray-400 text-sm">Premium custom slides for everyone</p>
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">SlideLife</h3>
+              <p className="text-gray-400">Premium comfort for every step</p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Quick Links</h4>
+              <div className="space-y-2 text-gray-400">
+                <p className="hover:text-white cursor-pointer">Privacy Policy</p>
+                <p className="hover:text-white cursor-pointer">Terms of Service</p>
+                <p className="hover:text-white cursor-pointer">Shipping Info</p>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Contact Us</h4>
+              <div className="space-y-2 text-gray-400">
+                <p>support@slidelife.com</p>
+                <p>1-800-SLIDE-ME</p>
+                <p>Mon-Fri 9AM-5PM EST</p>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 SlideLife. All rights reserved.</p>
+          </div>
         </div>
       </footer>
     </div>
   );
 };
 
-export default CustomSlidesShop;
+export default SlideWebsite;
