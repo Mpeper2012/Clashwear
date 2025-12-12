@@ -1045,80 +1045,73 @@
     const SIZES = ["Small", "Medium", "Large", "Extra Large"];
 
     // Using placeholder images; swap the URLs with real pictures of your slides later.
-    const PRODUCTS = [
-      {
-        id: "soccer-elite",
-        name: "Soccer Elite Slides",
-        price: 34.99,
-        tagline: "Perfect for post-game locker room comfort.",
-        category: "Sports",
-        image:
-          "https://via.placeholder.com/400x300.png?text=Soccer+Elite+Slides",
-      },
-      {
-        id: "basketball-court",
-        name: "Court Vision Slides",
-        price: 36.99,
-        tagline: "Inspired by hardwood courts and ankle-breakers.",
-        category: "Sports",
-        image:
-          "https://via.placeholder.com/400x300.png?text=Basketball+Court+Slides",
-      },
-      {
-        id: "football-champs",
-        name: "Gridiron Champs Slides",
-        price: 35.99,
-        tagline: "Game-day ready comfort for every touchdown.",
-        category: "Sports",
-        image:
-          "https://via.placeholder.com/400x300.png?text=Football+Champs+Slides",
-      },
-      {
-        id: "pixel-gamer",
-        name: "Pixel Gamer Slides",
-        price: 37.99,
-        tagline: "Retro pixels for the true OG gamer.",
-        category: "Video Games",
-        image:
-          "https://via.placeholder.com/400x300.png?text=Pixel+Gamer+Slides",
-      },
-      {
-        id: "battle-royale",
-        name: "Battle Royale Slides",
-        price: 39.99,
-        tagline: "Drop in, loot up, and chill in style.",
-        category: "Video Games",
-        image:
-          "https://via.placeholder.com/400x300.png?text=Battle+Royale+Slides",
-      },
-      {
-        id: "galaxy-drift",
-        name: "Galaxy Drift Slides",
-        price: 38.5,
-        tagline: "Stars, nebulae, and out-of-this-world comfort.",
-        category: "Style",
-        image:
-          "https://via.placeholder.com/400x300.png?text=Galaxy+Drift+Slides",
-      },
-      {
-        id: "flame-rush",
-        name: "Flame Rush Slides",
-        price: 33.5,
-        tagline: "Fire graphics that stand out everywhere.",
-        category: "Style",
-        image:
-          "https://via.placeholder.com/400x300.png?text=Flame+Rush+Slides",
-      },
-      {
-        id: "emoji-vibes",
-        name: "Emoji Vibes Slides",
-        price: 32.99,
-        tagline: "Fun, loud, and full of personality.",
-        category: "Style",
-        image:
-          "https://via.placeholder.com/400x300.png?text=Emoji+Vibes+Slides",
-      },
-    ];
+const PRODUCTS = [
+  {
+    id: "soccer-elite",
+    name: "Soccer Elite Slides",
+    price: 34.99,
+    tagline: "Perfect for post-game locker room comfort.",
+    category: "Sports",
+    image: "Soccor elite slides.png"          // matches file name
+  },
+  {
+    id: "basketball-court",
+    name: "Court Vision Slides",
+    price: 36.99,
+    tagline: "Inspired by hardwood courts and ankle-breakers.",
+    category: "Sports",
+    image: "Basketball slides.png"
+  },
+  {
+    id: "football-champs",
+    name: "Gridiron Champs Slides",
+    price: 35.99,
+    tagline: "Game-day ready comfort for every touchdown.",
+    category: "Sports",
+    image: "Gridiron champs.png"
+  },
+  {
+    id: "pixel-gamer",
+    name: "Pixel Gamer Slides",
+    price: 37.99,
+    tagline: "Retro pixels for the true OG gamer.",
+    category: "Video Games",
+    image: "Pixel gamer.png"
+  },
+  {
+    id: "battle-royale",
+    name: "Battle Royale Slides",
+    price: 39.99,
+    tagline: "Drop in, loot up, and chill in style.",
+    category: "Video Games",
+    image: "Battle royal slides.png"
+  },
+  {
+    id: "galaxy-drift",
+    name: "Galaxy Drift Slides",
+    price: 38.5,
+    tagline: "Stars, nebulae, and out-of-this-world comfort.",
+    category: "Style",
+    image: "Galaxy Drift.png"
+  },
+  {
+    id: "flame-rush",
+    name: "Flame Rush Slides",
+    price: 33.5,
+    tagline: "Fire graphics that stand out everywhere.",
+    category: "Style",
+    image: "Flame rush.png"
+  },
+  {
+    id: "emoji-vibes",
+    name: "Emoji Vibes Slides",
+    price: 32.99,
+    tagline: "Fun, loud, and full of personality.",
+    category: "Style",
+    image: "Emoji vibes slides.jpg"           // only JPG
+  }
+];
+
 
     // ---------- RENDER SHOP ----------
     const shopGrid = document.getElementById("shop-grid");
